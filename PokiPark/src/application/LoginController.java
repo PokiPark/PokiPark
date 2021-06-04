@@ -34,7 +34,7 @@ public class LoginController {
 	}
 	@FXML
 	private void registerClicked(ActionEvent e) {
-		
+		//change scene to Register
 	}
 	
 }
