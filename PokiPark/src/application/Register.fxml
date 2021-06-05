@@ -67,6 +67,11 @@
                   <Font name="Artifakt Element Bold" size="11.0" />
                </font>
             </Button>
+            <Label fx:id="errorLabel" layoutX="269.0" layoutY="6.0" prefHeight="17.0" prefWidth="270.0" textFill="#c30000">
+               <font>
+                  <Font name="ArtifaktElement-Regular" size="11.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </bottom>

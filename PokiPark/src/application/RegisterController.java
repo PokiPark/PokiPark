@@ -17,6 +17,8 @@ public class RegisterController {
 	}
 	
 	@FXML
+	private Label errorLabel;
+	@FXML
 	private TextField username;
 	@FXML
 	private TextField email;
@@ -27,7 +29,20 @@ public class RegisterController {
 	
 	@FXML
 	public void registerClicked(ActionEvent event) {
-		//change scene to login? (oder MainMenu?) (oder else?)
+		if(username.getText().isEmpty() || email.getText().isEmpty() || password.getText().isEmpty() || passwordCheck.getText().isEmpty()) {
+			errorLabel.setText("Gehe sicher, dass alle Felder ausgefüllt sind.");
+		}
+		else {
+			// check if password and passwordCheck are equal
+			if (password.getText().toString().equals(passwordCheck.getText().toString())) {
+				errorLabel.setText("");
+				// change scene to login? (oder MainMenu?) (oder else?)
+				// am besten wahrscheinlich email-verifikations-screen -> wenn verifiziert gehen Daten in die Datenbank über + Scenechange zu Loginscreen
+			}
+			else {
+				errorLabel.setText("Passwörter stimmen nicht überein.");
+			}
+		}
 	}
 	@FXML
 	public void loginClicked(ActionEvent event) throws IOException {
