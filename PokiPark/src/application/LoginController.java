@@ -30,14 +30,25 @@ public class LoginController {
 	private void loginClicked(ActionEvent event) throws IOException {
 		
 		if(username.getText().toString().equals("Hier müsste die Datenbank anbindung connecten.") && password.getText().toString().equals("hier auch.")) {
+			Node source = (Node) event.getSource();
+			Stage oldStage = (Stage) source.getScene().getWindow();
+			oldStage.close();
+			
 			//change scene to MainMenu
-			//main.changeScene("MainMenu.fxml");
+			
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Pokipark | MainMenu");
+			stage.setScene(new Scene(root));
+			stage.show();
 		}
 		else if(username.getText().isEmpty() && password.getText().isEmpty()) {
 			errorLabel.setText("Bitte gebe deine Daten ein.");
 		}
 		else {
 			errorLabel.setText("Falsches Passwort oder Benutzername.");
+			password.clear();
 		}
 	}
 	@FXML
