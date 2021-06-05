@@ -55,7 +55,7 @@
                <font>
                   <Font size="11.0" />
                </font></Button>
-            <Label fx:id="errorLabel" layoutX="364.0" layoutY="6.0" prefHeight="17.0" prefWidth="204.0" textFill="#c30000">
+            <Label fx:id="errorLabel" alignment="CENTER" layoutX="13.0" layoutY="6.0" prefHeight="17.0" prefWidth="575.0" style="-fx-background-color: lightGray;" textFill="#c30000">
                <font>
                   <Font name="ArtifaktElement-Regular" size="11.0" />
                </font>
