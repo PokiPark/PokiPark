@@ -14,7 +14,6 @@ public class LoginController {
 		
 	}
 	
-	
 	@FXML
 	Label errorLabel;
 	@FXML
@@ -25,10 +24,8 @@ public class LoginController {
 	Button login;
 	@FXML
 	Hyperlink register;
-	
 	@FXML
 	private void loginClicked(ActionEvent event) throws IOException {
-		
 		if(username.getText().toString().equals("Hier müsste die Datenbank anbindung connecten.") && password.getText().toString().equals("hier auch.")) {
 			Node source = (Node) event.getSource();
 			Stage oldStage = (Stage) source.getScene().getWindow();
@@ -53,7 +50,6 @@ public class LoginController {
 	}
 	@FXML
 	private void registerClicked(ActionEvent event) throws IOException {
-
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -67,5 +63,4 @@ public class LoginController {
 		stage.setScene(new Scene(root));
 		stage.show();
 	}
-	
 }

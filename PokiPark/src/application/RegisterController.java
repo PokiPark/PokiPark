@@ -27,7 +27,6 @@ public class RegisterController {
 	private PasswordField password;
 	@FXML
 	private PasswordField passwordCheck;
-	
 	@FXML
 	public void registerClicked(ActionEvent event) {
 		if(username.getText().isEmpty() || email.getText().isEmpty() || password.getText().isEmpty() || passwordCheck.getText().isEmpty()) {
