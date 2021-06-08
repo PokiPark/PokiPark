@@ -8,6 +8,7 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
+	private boolean isActiveUser = false;
 	
 	@Override
 	public String toString() {
@@ -47,6 +48,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+	public boolean isActiveUser() {
+		return isActiveUser;
+	}
+	public void setActiveUser(boolean isActiveUser) {
+		this.isActiveUser = isActiveUser;
+	}
 }

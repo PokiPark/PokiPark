@@ -55,6 +55,7 @@ public class LoginController {
 		userlist.forEach((item) -> {
 			if(username.getText().toString().equals(item.getUsername()) && password.getText().toString().equals(item.getPassword())) {
 				try {
+					setActiveUser();
 					changeToMainMenu(event);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -101,6 +102,14 @@ public class LoginController {
 		stage.show();
 	}
 	
+	public void setActiveUser() {
+		userlist.forEach((item) -> {
+			if(item.getUsername().equals(getUsername())) {
+				item.isActiveUser();
+			}
+		});
+	}
+	
 	public void changeToMainMenu(ActionEvent event) throws IOException {
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -114,5 +123,9 @@ public class LoginController {
 		stage.setTitle("Pokipark | MainMenu");
 		stage.setScene(new Scene(root));
 		stage.show();
+	}
+	
+	public String getUsername() {
+		return username.getText().toString();
 	}
 }
