@@ -49,43 +49,14 @@ public class RegisterController {
 			if (passwordIsValid(getPassword())) {
 				// check if password and passwordCheck are equal
 				if (getPassword().equals(getPasswordCheck())) {
-					connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-					statement = connection.createStatement();
-					resultSet = statement.executeQuery("SELECT * FROM userbank");
-					while (resultSet.next()) {
-						User u = new User();
-						u.setId(resultSet.getInt("id"));
-						u.setUsername(resultSet.getString("username"));
-						u.setPassword(resultSet.getString("password"));
-						u.setEmail(resultSet.getString("email"));
-						userlist.add(u);
-					}
-					userlist.forEach((item) -> {
-						if (usernameIsValid(item.getUsername()) & emailIsValid(item.getEmail())) {
-
+					Database.addUser(getUsername(), getPassword(), getEmail());
 							errorLabel.setText("");
-
-							String sqlCommand = "INSERT INTO userbank (username, password, email, id) VALUES ('"
-									+ getUsername() + "', '" + getPassword() + "', '" + getEmail() + "', NULL)";
-
-							try {
-								int countRow = statement.executeUpdate(sqlCommand);
-							} catch (SQLException e) {
-								e.printStackTrace();
-							}
-							// change scene to login? (oder MainMenu?) (oder else?)
-							// am besten wahrscheinlich email-verifikations-screen -> wenn verifiziert gehen
-							// Daten in die Datenbank über + Scenechange zu Loginscreen
-
 							try {
 								changeToLogin(event);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
-						}
-					});
 				}
-
 				else {
 					errorLabel.setText("Passwörter stimmen nicht überein.");
 				}
@@ -99,31 +70,6 @@ public class RegisterController {
 	@FXML
 	public void loginClicked(ActionEvent event) throws IOException {
 		changeToLogin(event);
-	}
-
-	public boolean usernameIsValid(String username) {
-		if(username.equals(getUsername())) {
-			errorLabel.setText("Benutzername wird bereits verwendet.");
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean emailIsValid(String email) {
-		Pattern at = Pattern.compile("[@]");
-		Pattern dot = Pattern.compile("[.]");
-		Matcher hasAt = at.matcher(getEmail());
-		Matcher hasDot = dot.matcher(getEmail());
-		
-		if(email.equals(getEmail())) {
-			errorLabel.setText("Email wird bereits verwendet.");
-			return false;
-		} else if(hasAt.find() & hasDot.find()) {
-			return true;
-		} else {
-			errorLabel.setText("E-Mail ist ungültig.");
-			return false;
-		}
 	}
 
 	public boolean passwordIsValid(String password) {
