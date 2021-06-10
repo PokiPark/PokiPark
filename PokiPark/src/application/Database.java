@@ -114,7 +114,7 @@ public class Database {
 		}
 	}
 	
-	public static Poki getPoki(String name) throws SQLException {
+	public static Poki getPoki(String name, String sex) throws SQLException {
 		connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 		statement = connection.createStatement();
 		resultSet = statement.executeQuery("SELECT `name` FROM `pokibank` WHERE name = '" + name + "'");
@@ -123,7 +123,7 @@ public class Database {
 		p.setId(resultSet.getInt("id"));
 		p.setName(resultSet.getString("name"));
 		p.setTyp(resultSet.getString("typ"));
-		p.setSex(resultSet.getString("sex"));
+		p.setSex(sex);
 		p.setImg_path(resultSet.getString("img_path"));
 		p.setPrevEvo(resultSet.getString("prevEvo"));
 		p.setNextEvo(resultSet.getString("nextEvo"));

@@ -16,7 +16,7 @@ public class Poki {
 	private String pokedexInfo;
 	
 	private Poki evolve() throws SQLException {
-		Poki poki = Database.getPoki(nextEvo);
+		Poki poki = Database.getPoki(nextEvo, sex);
 		Database.removePoki(id);
 		return poki;
 	}
