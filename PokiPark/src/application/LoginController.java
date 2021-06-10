@@ -17,15 +17,7 @@ public class LoginController {
 		
 	}
 	
-	final String dbUrl = "jdbc:mysql://localhost:3306/pokipark";
-	final String dbUsername = "root";
-	final String dbPassword = "";
-	
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
-	
-	ArrayList<User> userlist = new ArrayList();
+	ArrayList<User> userlist;
 	
 	@FXML
 	Label errorLabel;
@@ -37,54 +29,29 @@ public class LoginController {
 	Button login;
 	@FXML
 	Hyperlink register;
+	
 	@FXML
 	private void loginClicked(ActionEvent event) throws IOException, SQLException {
-		connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-		statement = connection.createStatement();
-		resultSet = statement.executeQuery("SELECT * FROM userbank");
-		
-		while(resultSet.next()) {
-			User u = new User();
-			u.setId(resultSet.getInt("id"));
-			u.setUsername(resultSet.getString("username"));
-			u.setPassword(resultSet.getString("password"));
-			u.setEmail(resultSet.getString("email"));
-			userlist.add(u);
-		} 
-		
+		Database.initData("userbank");
+		userlist = Database.getUserlist();
 		userlist.forEach((item) -> {
+			System.out.println(userlist);
 			if(username.getText().toString().equals(item.getUsername()) && password.getText().toString().equals(item.getPassword())) {
-				try {
-					setActiveUser();
-					changeToMainMenu(event);
-				} catch (IOException e) {
-					e.printStackTrace();
-				} finally {
-					if(resultSet != null) {try {
-						resultSet.close();
-					} catch (SQLException e) {
+					item.isActiveUser();
+					try {
+						changeToMainMenu(event);
+					} catch (IOException e) {
 						e.printStackTrace();
-					}}
-					if(statement != null) {try {
-						statement.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}}
-					if(connection != null) {try {
-						connection.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}}
-				}
+					}
 			}
 			else if(username.getText().isEmpty() && password.getText().isEmpty()) {
 				errorLabel.setText("Bitte gebe deine Daten ein.");
 			}
 			else {
 				errorLabel.setText("Falsches Passwort oder Benutzername.");
-				password.clear();
 			}
 		});
+		password.clear();
 	}
 	@FXML
 	private void registerClicked(ActionEvent event) throws IOException {
@@ -100,14 +67,6 @@ public class LoginController {
 		stage.setTitle("Registrierung");
 		stage.setScene(new Scene(root));
 		stage.show();
-	}
-	
-	public void setActiveUser() {
-		userlist.forEach((item) -> {
-			if(item.getUsername().equals(getUsername())) {
-				item.isActiveUser();
-			}
-		});
 	}
 	
 	public void changeToMainMenu(ActionEvent event) throws IOException {
