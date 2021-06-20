@@ -1,14 +1,14 @@
 package POJO;
 
 public class User {
-	
+
 	private int id;
 	private String username;
 	private String password;
 	private String email;
 	private boolean isActiveUser = false;
 	private boolean isAdmin;
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -24,43 +24,54 @@ public class User {
 		sb.append(isAdmin());
 		return sb.toString();
 	}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public boolean isActiveUser() {
 		return isActiveUser;
 	}
+
 	public void setActiveUser(boolean isActiveUser) {
 		this.isActiveUser = isActiveUser;
 	}
+
 	public void setAdmin(int isAdmin) {
-		if(isAdmin == 0)
+		if (isAdmin == 0)
 			this.isAdmin = false;
-		else if(isAdmin == 1)
+		else if (isAdmin == 1)
 			this.isAdmin = true;
 	}
+
 	public boolean isAdmin() {
 		return isAdmin;
 	}

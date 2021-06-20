@@ -35,15 +35,15 @@ public class RegisterController extends Main {
 			if (passwordIsValid(getPassword())) {
 				// check if password and passwordCheck are equal
 				if (getPassword().equals(getPasswordCheck())) {
+					Database.initData("userbank");
 					Database.addUser(getUsername(), getPassword(), getEmail());
-							errorLabel.setText("");
-							try {
-								changeStageTo(event, "Login");
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-				}
-				else {
+					errorLabel.setText("");
+					try {
+						changeStageTo(event, "Login");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
 					errorLabel.setText("Passwörter stimmen nicht überein.");
 				}
 			} else {
