@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 
-public class MainMenuController extends Main {
+public class AdminMainMenuController extends Main {
 	
 	@FXML
 	private ImageView avatar;
@@ -21,11 +21,11 @@ public class MainMenuController extends Main {
 	}
 	@FXML
 	public void pokedexClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "Pokedex");
+		changeStageTo(event, "AdminPokedex");
 	}
 	@FXML
 	public void zonesClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "Zones");
+		changeStageTo(event, "AdminZones");
 	}
 	@FXML
 	public void logoutClicked(ActionEvent event) throws IOException {

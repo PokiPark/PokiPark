@@ -6,7 +6,10 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminZonesController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminPokedexController">
+   <top>
+      <AnchorPane prefHeight="76.0" prefWidth="600.0" style="-fx-background-color: lightGray;" BorderPane.alignment="CENTER" />
+   </top>
    <bottom>
       <AnchorPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: lightGray;" BorderPane.alignment="CENTER">
          <children>
@@ -19,12 +22,9 @@
       </AnchorPane>
    </bottom>
    <left>
-      <AnchorPane prefHeight="373.0" prefWidth="164.0" style="-fx-background-color: darkGray;" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightYellow;" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <AnchorPane prefHeight="450.0" prefWidth="500.0" style="-fx-background-color: lightGreen;" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="374.0" prefWidth="452.0" style="-fx-background-color: darkGray;" BorderPane.alignment="CENTER" />
    </right>
-   <top>
-      <AnchorPane prefHeight="77.0" prefWidth="600.0" style="-fx-background-color: lightGray;" BorderPane.alignment="CENTER" />
-   </top>
 </BorderPane>

@@ -8,25 +8,11 @@ import java.util.regex.*;
 import POJO.User;
 import javafx.event.*;
 import javafx.fxml.*;
-import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.stage.*;
 
-public class RegisterController {
+public class RegisterController extends Main {
 
-	public RegisterController() {
-
-	}
-
-	final String dbUrl = "jdbc:mysql://localhost:3306/pokipark";
-	final String dbUsername = "root";
-	final String dbPassword = "";
-
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
-
-	ArrayList<User> userlist = new ArrayList();
+	ArrayList<User> userlist = new ArrayList<User>();
 
 	@FXML
 	private Label errorLabel;
@@ -52,7 +38,7 @@ public class RegisterController {
 					Database.addUser(getUsername(), getPassword(), getEmail());
 							errorLabel.setText("");
 							try {
-								changeToLogin(event);
+								changeStageTo(event, "Login");
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -69,7 +55,7 @@ public class RegisterController {
 
 	@FXML
 	public void loginClicked(ActionEvent event) throws IOException {
-		changeToLogin(event);
+		changeStageTo(event, "Login");
 	}
 
 	public boolean passwordIsValid(String password) {
@@ -89,21 +75,6 @@ public class RegisterController {
 		} else {
 			return false;
 		}
-	}
-
-	public void changeToLogin(ActionEvent event) throws IOException {
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
-
-		// change scene to Login
-
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
-		Parent root = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setTitle("Login");
-		stage.setScene(new Scene(root));
-		stage.show();
 	}
 
 	public String getUsername() {

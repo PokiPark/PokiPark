@@ -1,11 +1,13 @@
 package application;
 	
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.fxml.FXMLLoader;
+import java.io.*;
 
+import javafx.application.Application;
+import javafx.event.*;
+import javafx.stage.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
+import javafx.fxml.*;
 
 public class Main extends Application {
 	@Override
@@ -17,9 +19,22 @@ public class Main extends Application {
 			primaryStage.setTitle("Login");
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void changeStageTo(ActionEvent event, String stage_name) throws IOException {
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+		
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource(stage_name + ".fxml"));
+		Parent root = (Parent) fxmlloader.load();
+		Stage stage = new Stage();
+		stage.setTitle("PokiPark | " + stage_name);
+		stage.setScene(new Scene(root));
+		stage.show();
 	}
 	
 	public static void main(String[] args) {

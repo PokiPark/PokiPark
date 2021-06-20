@@ -8,21 +8,17 @@ import java.util.regex.Pattern;
 import POJO.*;
 
 public class Database {
-
-	public Database() {
-		
-	}
 	
-	final static String dbUrl = "jdbc:mysql://localhost:3306/pokipark";
-	final static String dbUsername = "root";
-	final static String dbPassword = "";
+	final static String dbUrl = "jdbc:mysql://nic-we.de:3306/pokipark";
+	final static String dbUsername = "pokipark";
+	final static String dbPassword = "pummeluff654";
 	
 	static Connection connection = null;
 	static Statement statement = null;
 	static ResultSet resultSet = null;
 	
-	static ArrayList<User> userlist = new ArrayList();
-	static ArrayList<Poki> pokilist = new ArrayList();
+	static ArrayList<User> userlist = new ArrayList<User>();
+	static ArrayList<Poki> pokilist = new ArrayList<Poki>();
 	
 	public static void initData(String database) throws SQLException {
 		connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
@@ -37,8 +33,9 @@ public class Database {
 				u.setUsername(resultSet.getString("username"));
 				u.setPassword(resultSet.getString("password"));
 				u.setEmail(resultSet.getString("email"));
+				u.setAdmin(resultSet.getInt("admin"));
 				userlist.add(u);
-			} 
+			}
 		} else {
 			pokilist.clear();
 			while(resultSet.next()) {
@@ -81,10 +78,10 @@ public class Database {
 		
 		userlist.forEach((item) -> {
 			if (usernameIsValid(item.getUsername(), username) & emailIsValid(item.getEmail(), email)) {
-				String sqlCommand = "INSERT INTO userbank (username, password, email, id) VALUES ('"
-						+ username + "', '" + password + "', '" + email + "', NULL)";
+				String sqlCommand = "INSERT INTO userbank (username, password, email, id, admin) VALUES ('"
+						+ username + "', '" + password + "', '" + email + "', NULL, " + 1 + ")";
 				try {
-					int countRow = statement.executeUpdate(sqlCommand);
+					statement.executeUpdate(sqlCommand);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}}

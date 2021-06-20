@@ -1,7 +1,5 @@
 package POJO;
 
-import java.sql.*;
-
 public class User {
 	
 	private int id;
@@ -9,6 +7,7 @@ public class User {
 	private String password;
 	private String email;
 	private boolean isActiveUser = false;
+	private boolean isAdmin;
 	
 	@Override
 	public String toString() {
@@ -21,6 +20,8 @@ public class User {
 		sb.append(getPassword());
 		sb.append("\t");
 		sb.append(getEmail());
+		sb.append("\t");
+		sb.append(isAdmin());
 		return sb.toString();
 	}
 	
@@ -53,5 +54,14 @@ public class User {
 	}
 	public void setActiveUser(boolean isActiveUser) {
 		this.isActiveUser = isActiveUser;
+	}
+	public void setAdmin(int isAdmin) {
+		if(isAdmin == 0)
+			this.isAdmin = false;
+		else if(isAdmin == 1)
+			this.isAdmin = true;
+	}
+	public boolean isAdmin() {
+		return isAdmin;
 	}
 }
