@@ -79,7 +79,7 @@ public class Database {
 		userlist.forEach((item) -> {
 			if (usernameIsValid(item.getUsername(), username) & emailIsValid(item.getEmail(), email)) {
 				String sqlCommand = "INSERT INTO userbank (username, password, email, id, admin) VALUES ('"
-						+ username + "', '" + password + "', '" + email + "', NULL, " + 1 + ")";
+						+ username + "', '" + password + "', '" + email + "', NULL,  0)";
 				try {
 					statement.executeUpdate(sqlCommand);
 				} catch (SQLException e) {
