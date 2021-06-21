@@ -3,11 +3,8 @@ package POJO;
 public class User {
 
 	private int id;
-	private String username;
-	private String password;
-	private String email;
-	private boolean isActiveUser = false;
-	private boolean isAdmin;
+	private String username, password, email;
+	private boolean isActiveUser = false, isAdmin;
 
 	@Override
 	public String toString() {

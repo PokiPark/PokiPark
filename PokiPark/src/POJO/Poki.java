@@ -2,11 +2,8 @@ package POJO;
 
 public class Poki {
 
-	private int id;
-	private String name;
-	private String typ;
-	private String img_path;
-	public int anzahl = 0;
+	private int id, anzahl = 0;
+	private String name, typ, img_path;
 
 	public int getId() {
 		return id;
