@@ -2,8 +2,6 @@ package application;
 
 import java.sql.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import POJO.*;
 
