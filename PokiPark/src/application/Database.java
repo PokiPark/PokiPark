@@ -79,6 +79,12 @@ public class Database {
 		}
 		closeConnection();
 	}
+	
+	public static void sendSqlCommand(String sqlCommand) throws SQLException {
+		openConnection();
+		statement.execute(sqlCommand);
+		closeConnection();
+	}
 
 	public static void addToUserTable(String username, String password, String email) throws SQLException {
 		openConnection();
