@@ -113,16 +113,13 @@ public class Database {
 		closeConnection();
 	}
 
-	public static void removeFromUserTable() {
-
-	}
-
-	public static void removeFromPokiTable() {
-
-	}
-
-	public static void removeFromPokedexTable() {
-
+	public static void removeFromTable(String table_name, int id) throws SQLException {
+		openConnection();
+		
+		String sqlCommand = "DELETE FROM '" + table_name + "' WHERE '" + table_name + "'.'id' = " + id;
+		statement.execute(sqlCommand);
+		
+		closeConnection();
 	}
 
 	public static ArrayList<PokedexPoki> getPokedex() {
