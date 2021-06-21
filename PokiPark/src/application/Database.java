@@ -19,6 +19,23 @@ public class Database {
 	static ArrayList<Poki> pokilist = new ArrayList<Poki>();
 	static ArrayList<PokedexPoki> pokedex = new ArrayList<PokedexPoki>();
 
+	
+	private static void openConnection() throws SQLException {
+		connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+		statement = connection.createStatement();
+	}
+	private static void closeConnection() throws SQLException {
+		if (resultSet != null) {
+			resultSet.close();
+		}
+		if (statement != null) {
+			statement.close();
+		}
+		if (connection != null) {
+			connection.close();
+		}
+	}
+	
 	public static void initData(String database) throws SQLException {
 		openConnection();
 		resultSet = statement.executeQuery("SELECT * FROM " + database);
@@ -61,35 +78,6 @@ public class Database {
 			}
 		}
 		closeConnection();
-	}
-
-	private static void openConnection() throws SQLException {
-		connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-		statement = connection.createStatement();
-	}
-
-	private static void closeConnection() {
-		if (resultSet != null) {
-			try {
-				resultSet.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		if (statement != null) {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	public static void addToUserTable(String username, String password, String email) throws SQLException {
