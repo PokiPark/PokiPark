@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -30,6 +31,21 @@
             <Button layoutX="133.0" layoutY="12.0" mnemonicParsing="false" onAction="#sortAtoZ_Pokedex_ButtonClicked" text="A-Z" />
             <Button layoutX="109.0" layoutY="12.0" mnemonicParsing="false" onAction="#sortId_Pokedex_ButtonClicked" text="#" />
             <Button layoutX="170.0" layoutY="12.0" mnemonicParsing="false" onAction="#sortTYP_Pokedex_ButtonClicked" text="TYP" />
+            <TextField fx:id="searchAfterName_TextField" layoutX="216.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" promptText="suche nach Name..">
+               <font>
+                  <Font name="ArtifaktElement-Regular" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="searchAfterTyp_TextField" layoutX="343.0" layoutY="12.0" prefHeight="25.0" prefWidth="113.0" promptText="suche nach Typ..">
+               <font>
+                  <Font name="ArtifaktElement-Regular" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="searchAfterID_TextField" layoutX="458.0" layoutY="12.0" prefHeight="25.0" prefWidth="102.0" promptText="suche nach ID..">
+               <font>
+                  <Font name="ArtifaktElement-Regular" size="12.0" />
+               </font>
+            </TextField>
          </children>
       </AnchorPane>
    </bottom>
