@@ -24,7 +24,7 @@ public class LoginController extends Main {
 	private void loginClicked(ActionEvent event) throws IOException, SQLException {
 		Database.initData("userbank");
 		Database.getUserlist().forEach((item) -> {
-			System.out.println(Database.getUserlist());
+			// System.out.println(Database.getUserlist());
 			if (username.getText().toString().equals(item.getUsername())
 					&& password.getText().toString().equals(item.getPassword())) {
 				item.isActiveUser();

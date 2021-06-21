@@ -2,7 +2,7 @@ package application;
 
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.regex.*;
 
 import POJO.User;
@@ -11,8 +11,6 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 
 public class RegisterController extends Main {
-
-	ArrayList<User> userlist = new ArrayList<User>();
 
 	@FXML
 	private Label errorLabel;
@@ -28,28 +26,10 @@ public class RegisterController extends Main {
 
 	@FXML
 	public void registerClicked(ActionEvent event) throws SQLException, IOException {
-		if (username.getText().isEmpty() || email.getText().isEmpty() || password.getText().isEmpty()
-				|| passwordCheck.getText().isEmpty()) {
-			errorLabel.setText("Gehe sicher, dass alle Felder ausgefüllt sind.");
-		} else {
-			if (passwordIsValid(getPassword())) {
-				// check if password and passwordCheck are equal
-				if (getPassword().equals(getPasswordCheck())) {
-					Database.initData("userbank");
-					Database.addUser(getUsername(), getPassword(), getEmail());
-					errorLabel.setText("");
-					try {
-						changeStageTo(event, "Login");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				} else {
-					errorLabel.setText("Passwörter stimmen nicht überein.");
-				}
-			} else {
-				errorLabel.setText(
-						"Passwort muss mindestens 8 Zeichen, Groß- und Kleinbuchstaben und Zahl oder Sonderzeichen haben.");
-			}
+		if (registerDataIsValid(getUsername(), getEmail(), getPassword(), getPasswordCheck())) {
+			Database.addToUserTable(getUsername(), getPassword(), getEmail());
+			errorLabel.setText("");
+			changeStageTo(event, "Login");
 		}
 	}
 
@@ -58,10 +38,68 @@ public class RegisterController extends Main {
 		changeStageTo(event, "Login");
 	}
 
-	public boolean passwordIsValid(String password) {
+	private boolean registerDataIsValid(String username, String email, String password, String passwordCheck)
+			throws SQLException {
+		Database.initData("userbank");
+		ArrayList<User> userlist = Database.getUserlist();
+		if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty()) {
+			errorLabel.setText("Gehe sicher, dass alle Felder ausgefüllt sind.");
+			return false;
+		} else if (!usernameIsValid(userlist, username)) {
+			errorLabel.setText("Benutzername wird bereits verwendet.");
+			return false;
+		} else if (!emailIsValid(userlist, email)) {
+			errorLabel.setText("Email wird bereits verwendet.");
+			return false;
+		} else if (!emailHasCorrectSemantics(email)) {
+			errorLabel.setText("Email ist ungültig. Achte darauf, dass [@ und .] verwendet werden.");
+			return false;
+		} else if (!passwordIsValid(password)) {
+			errorLabel.setText("Passwort benötigt min. 8 Zeichen; Groß- & Kleinbuchstaben, Zahlen und Sonderzeichen.");
+			return false;
+		} else if (!passwordMatchesWithPasswordCheck(password, passwordCheck)) {
+			errorLabel.setText("Passwörter stimmen nicht überein.");
+			return false;
+		} else
+			return true;
+	}
+
+	private boolean usernameIsValid(ArrayList<User> userlist, String username) {
+		boolean usernameIsValid = true;
+
+		for (int i = 0; i < userlist.size() & usernameIsValid; i++) {
+			if (userlist.get(i).getUsername().equals(username))
+				usernameIsValid = false;
+		}
+		return usernameIsValid;
+	}
+
+	private boolean emailIsValid(ArrayList<User> userlist, String email) {
+		boolean emailIsValid = true;
+
+		for (int i = 0; i < userlist.size() & emailIsValid; i++) {
+			if (userlist.get(i).getEmail().equals(email))
+				emailIsValid = false;
+		}
+		return emailIsValid;
+	}
+
+	private boolean emailHasCorrectSemantics(String email) {
+		Pattern at = Pattern.compile("[@]");
+		Pattern dot = Pattern.compile("[.]");
+		Matcher hasAt = at.matcher(email);
+		Matcher hasDot = dot.matcher(email);
+
+		if (hasAt.find() & hasDot.find())
+			return true;
+		else
+			return false;
+	}
+
+	private boolean passwordIsValid(String password) {
 		// @Author
 		// https://stackoverflow.com/questions/1795402/check-if-a-string-contains-a-special-character
-		if (password.length() > 7) {
+		if (password.length() >= 8) {
 
 			Pattern letters = Pattern.compile("[a-zA-Z]");
 			Pattern numbers = Pattern.compile("[0-9]");
@@ -72,9 +110,15 @@ public class RegisterController extends Main {
 			Matcher hasSpecials = specials.matcher(password);
 
 			return hasLetters.find() && hasNumbers.find() && hasSpecials.find();
-		} else {
+		} else
 			return false;
-		}
+	}
+
+	private boolean passwordMatchesWithPasswordCheck(String password, String passwordCheck) {
+		if (password.equals(passwordCheck))
+			return true;
+		else
+			return false;
 	}
 
 	public String getUsername() {

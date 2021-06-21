@@ -19,7 +19,7 @@ public class Database {
 
 	static ArrayList<User> userlist = new ArrayList<User>();
 	static ArrayList<Poki> pokilist = new ArrayList<Poki>();
-	static ArrayList<Poki> pokedex = new ArrayList<Poki>();
+	static ArrayList<PokedexPoki> pokedex = new ArrayList<PokedexPoki>();
 
 	public static void initData(String database) throws SQLException {
 		openConnection();
@@ -36,19 +36,30 @@ public class Database {
 				u.setAdmin(resultSet.getInt("admin"));
 				userlist.add(u);
 			}
-		} else {
+		} else if (database.equals("pokibank")) {
 			pokilist.clear();
 			while (resultSet.next()) {
 				Poki p = new Poki();
 				p.setId(resultSet.getInt("id"));
 				p.setName(resultSet.getString("name"));
 				p.setTyp(resultSet.getString("typ"));
-				p.setSex(resultSet.getString("sex"));
 				p.setImg_path(resultSet.getString("img_path"));
-				p.setPrevEvo(resultSet.getString("prevEvo"));
-				p.setNextEvo(resultSet.getString("nextEvo"));
-				p.setPokedexInfo(resultSet.getString("pokedexInfo"));
+				p.setAnzahl(resultSet.getInt("anzahl"));
 				pokilist.add(p);
+			}
+		} else if (database.equals("pokedex")) {
+			pokedex.clear();
+			while (resultSet.next()) {
+				PokedexPoki pp = new PokedexPoki();
+				pp.setId(resultSet.getInt("id"));
+				pp.setName(resultSet.getString("name"));
+				pp.setTyp(resultSet.getString("typ"));
+				pp.setImg_Path(resultSet.getString("img_path"));
+				pp.setFirstEvo(resultSet.getString("firstEvo"));
+				pp.setSecondEvo(resultSet.getString("secondEvo"));
+				pp.setThirdEvo(resultSet.getString("thirdEvo"));
+				pp.setPokedexEntry(resultSet.getString("pokedexEntry"));
+				pokedex.add(pp);
 			}
 		}
 		closeConnection();
@@ -83,118 +94,52 @@ public class Database {
 		}
 	}
 
-	public static void addUser(String username, String password, String email) throws SQLException {
+	public static void addToUserTable(String username, String password, String email) throws SQLException {
 		openConnection();
-		if (usernameAndEmailAreValid(username, email)) {
-			String sqlCommand = "INSERT INTO userbank (username, password, email, id, admin) VALUES ('" + username
-					+ "', '" + password + "', '" + email + "', NULL,  0)";
-			try {
-				statement.executeUpdate(sqlCommand);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+
+		String sqlCommand = "INSERT INTO userbank (username, password, email, id, admin) VALUES ('" + username + "', '"
+				+ password + "', '" + email + "', NULL,  0)";
+		statement.execute(sqlCommand);
+
 		closeConnection();
 	}
 
-	private static boolean usernameAndEmailAreValid(String username, String email) {
-		boolean usernameAndEmailAreValid = false;
-
-		for (int i = 0; i < userlist.size(); i++) {
-			if (!usernameIsInUse(userlist.get(i).getUsername(), username)
-					&& !emailIsInUse(userlist.get(i).getEmail(), email) && emailIsCorrect(email)) {
-				usernameAndEmailAreValid = true;
-			}
-		}
-		return usernameAndEmailAreValid;
-	}
-
-	private static boolean usernameIsInUse(String usernameItem, String username) {
-		if (username.equals(usernameItem)) {
-			return true;
-		}
-		return false;
-	}
-
-	private static boolean emailIsInUse(String emailItem, String email) {
-
-		if (email.equals(emailItem)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private static boolean emailIsCorrect(String email) {
-		Pattern at = Pattern.compile("[@]");
-		Pattern dot = Pattern.compile("[.]");
-		Matcher hasAt = at.matcher(email);
-		Matcher hasDot = dot.matcher(email);
-
-		if (hasAt.find() & hasDot.find()) {
-			return true;
-		} else
-			return false;
-	}
-
-	public static Poki getPoki(String name, String sex) throws SQLException {
+	public static void addToPokiTable(String name, String typ, String img_path, int anzahl, int id)
+			throws SQLException {
 		openConnection();
-		resultSet = statement.executeQuery("SELECT `name` FROM `pokibank` WHERE name = '" + name + "'");
 
-		Poki p = new Poki();
-		p.setId(resultSet.getInt("id"));
-		p.setName(resultSet.getString("name"));
-		p.setTyp(resultSet.getString("typ"));
-		p.setSex(sex);
-		p.setImg_path(resultSet.getString("img_path"));
-		p.setPrevEvo(resultSet.getString("prevEvo"));
-		p.setNextEvo(resultSet.getString("nextEvo"));
-		p.setPokedexInfo(resultSet.getString("pokedexInfo"));
-		pokilist.add(p);
+		String sqlCommand = "INSERT INTO pokibank (name, typ, img_path, anzahl, id) VALUES ('" + name + "', '" + typ
+				+ "', '" + img_path + "', '" + anzahl + "', '" + id + "')";
+		statement.execute(sqlCommand);
 
-		closeConnection();
-		return p;
-	}
-
-	public static void addPoki(Poki poki, String nextEvo) {
-		pokilist.forEach(p -> {
-			if (nextEvo.equals(p.getName())) {
-				addPokiCountUp(p);
-			} else {
-				try {
-					addNewPoki(poki, nextEvo);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	private static void addPokiCountUp(Poki poki) {
-		poki.anzahl++;
-	}
-
-	private static void addNewPoki(Poki poki, String nextEvo) throws SQLException {
-		openConnection();
-		String sqlCommand = "INSERT INTO pokibank (name, typ, img_path, prevEvo, nextEvo, id) VALUES ('" + nextEvo
-				+ "', '" + poki.getTyp() + "', '" + "'IMG_PATH'" + "', '" + poki + "', nextEvoFromPokedexTable, NULL')";
-		try {
-			statement.executeUpdate(sqlCommand);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		closeConnection();
 	}
 
-	public static void removePoki(int id) {
-		pokilist.forEach((item) -> {
-			if (id == item.getId()) {
-				pokilist.remove(item);
-			}
-		});
+	public static void addToPokedexTable(String name, String typ, String img_path, String firstEvo, String secondEvo,
+			String thirdEvo, String pokedexEntry, int id) throws SQLException {
+		openConnection();
+
+		String sqlCommand = "INSERT INTO pokedex (name, typ, img_path, firstEvo, secondEvo, thirdEvo, pokedexEntry, id) VALUES ('"
+				+ name + "', '" + typ + "', '" + img_path + "', '" + firstEvo + "', '" + secondEvo + "', '" + thirdEvo
+				+ "', '" + pokedexEntry + "', '" + id + "')";
+		statement.execute(sqlCommand);
+
+		closeConnection();
 	}
 
-	public static ArrayList<Poki> getPokedex() {
+	public static void removeFromUserTable() {
+
+	}
+
+	public static void removeFromPokiTable() {
+
+	}
+
+	public static void removeFromPokedexTable() {
+
+	}
+
+	public static ArrayList<PokedexPoki> getPokedex() {
 		return pokedex;
 	}
 
