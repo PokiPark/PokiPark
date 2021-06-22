@@ -18,6 +18,8 @@ public class Database {
 	static ArrayList<User> userlist = new ArrayList<User>();
 	static ArrayList<Poki> pokilist = new ArrayList<Poki>();
 	static ArrayList<PokedexPoki> pokedex = new ArrayList<PokedexPoki>();
+	
+	public static User activeUser;
 
 	
 	private static void openConnection() throws SQLException {
@@ -36,11 +38,11 @@ public class Database {
 		}
 	}
 	
-	public static void initData(String database) throws SQLException {
+	public static void initData(String table) throws SQLException {
 		openConnection();
-		resultSet = statement.executeQuery("SELECT * FROM " + database);
+		resultSet = statement.executeQuery("SELECT * FROM " + table);
 
-		if (database.equals("userbank")) {
+		if (table.equals("usertable")) {
 			userlist.clear();
 			while (resultSet.next()) {
 				User u = new User();
@@ -51,7 +53,7 @@ public class Database {
 				u.setAdmin(resultSet.getInt("admin"));
 				userlist.add(u);
 			}
-		} else if (database.equals("pokibank")) {
+		} else if (table.equals("pokitable")) {
 			pokilist.clear();
 			while (resultSet.next()) {
 				Poki p = new Poki();
@@ -62,7 +64,7 @@ public class Database {
 				p.setAnzahl(resultSet.getInt("anzahl"));
 				pokilist.add(p);
 			}
-		} else if (database.equals("pokedex")) {
+		} else if (table.equals("pokedex")) {
 			pokedex.clear();
 			while (resultSet.next()) {
 				PokedexPoki pp = new PokedexPoki();

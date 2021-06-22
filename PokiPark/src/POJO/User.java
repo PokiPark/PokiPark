@@ -1,5 +1,7 @@
 package POJO;
 
+import application.Database;
+
 public class User {
 
 	private int id;
@@ -59,6 +61,7 @@ public class User {
 	}
 
 	public void setActiveUser(boolean isActiveUser) {
+		Database.activeUser = this;
 		this.isActiveUser = isActiveUser;
 	}
 
