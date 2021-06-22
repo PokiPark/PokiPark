@@ -15,7 +15,9 @@ import javafx.scene.input.*;
 
 public class AdminPokedexController extends Main implements Initializable {
 
-	ObservableList<String> pokedex_list = FXCollections.observableArrayList();
+	private ObservableList<String> pokedex_list = FXCollections.observableArrayList();
+	private ArrayList<PokedexPoki> pokedex = Database.getPokedex(), currentPokedex = pokedex,
+			filteredPokedex = new ArrayList<PokedexPoki>();
 
 	@FXML
 	private Label pokeInfo_Label;
@@ -30,6 +32,15 @@ public class AdminPokedexController extends Main implements Initializable {
 	private ListView<String> pokedex_listview;
 
 	@FXML
+	private TextField searchNameTF;
+
+	@FXML
+	private TextField searchTypTF;
+
+	@FXML
+	private TextField searchIdTF;
+
+	@FXML
 	private void mainmenuClicked(ActionEvent event) throws IOException {
 		changeStageTo(event, "MainMenu");
 	}
@@ -37,7 +48,6 @@ public class AdminPokedexController extends Main implements Initializable {
 	@FXML
 	private void open_PokeInfo_ListViewClicked(MouseEvent event) {
 		String clickedPoki = pokedex_listview.getSelectionModel().getSelectedItem();
-
 		boolean pokeFound = false;
 		for (int i = 0; i < Database.getPokedex().size() & !pokeFound; i++) {
 			if (Database.getPokedex().get(i).getName().equals(clickedPoki)) {
@@ -59,118 +69,93 @@ public class AdminPokedexController extends Main implements Initializable {
 
 	@FXML
 	private void sortId_Pokedex_ButtonClicked(ActionEvent event) throws SQLException {
-
-		Database.initData("pokedex");
-		ArrayList<PokedexPoki> pokedex;
-		pokedex = Database.getPokedex();
 		PokedexPoki temp;
-		int pokedexSize = pokedex.size();
-
+		int pokedexSize = currentPokedex.size();
 		if (idCounter % 2 == 0) {
 			for (int i = 0; i < pokedexSize; i++) {
 				for (int j = 1; j < pokedexSize - i; j++) {
-					if (pokedex.get(j - 1).getId() > pokedex.get(j).getId()) {
-
-						temp = pokedex.get(j - 1);
-						pokedex.set(j - 1, pokedex.get(j));
-						pokedex.set(j, temp);
+					if (currentPokedex.get(j - 1).getId() > currentPokedex.get(j).getId()) {
+						temp = currentPokedex.get(j - 1);
+						currentPokedex.set(j - 1, currentPokedex.get(j));
+						currentPokedex.set(j, temp);
 					}
 				}
 			}
 		} else if (idCounter % 2 == 1) {
 			for (int i = 0; i < pokedexSize; i++) {
 				for (int j = 1; j < pokedexSize - i; j++) {
-					if (pokedex.get(j - 1).getId() < pokedex.get(j).getId()) {
-
-						temp = pokedex.get(j);
-						pokedex.set(j, pokedex.get(j - 1));
-						pokedex.set(j - 1, temp);
+					if (currentPokedex.get(j - 1).getId() < currentPokedex.get(j).getId()) {
+						temp = currentPokedex.get(j);
+						currentPokedex.set(j, currentPokedex.get(j - 1));
+						currentPokedex.set(j - 1, temp);
 					}
 				}
 			}
 		}
 		idCounter++;
-		load_Pokedex_ListView(pokedex);
+		load_Pokedex_ListView(currentPokedex);
 	}
 
 	private int azCounter = 0;
 
 	@FXML
 	private void sortAtoZ_Pokedex_ButtonClicked(ActionEvent event) throws SQLException {
-		Database.initData("pokedex");
-		ArrayList<PokedexPoki> pokedex;
-		pokedex = Database.getPokedex();
 		PokedexPoki temp;
-
+		int pokedexSize = currentPokedex.size();
 		if (azCounter % 2 == 1) {
-			int pokedexSize = pokedex.size();
-
 			for (int i = 0; i < pokedexSize; i++) {
 				for (int j = 1; j < pokedexSize - i; j++) {
-					if (pokedex.get(j - 1).getName().charAt(0) < pokedex.get(j).getName().charAt(0)) {
-
+					if (currentPokedex.get(j - 1).getName().charAt(0) < currentPokedex.get(j).getName().charAt(0)) {
 						temp = pokedex.get(j - 1);
-						pokedex.set(j - 1, pokedex.get(j));
-						pokedex.set(j, temp);
+						currentPokedex.set(j - 1, currentPokedex.get(j));
+						currentPokedex.set(j, temp);
 					}
 				}
 			}
 		} else if (azCounter % 2 == 0) {
-			int pokedexSize = pokedex.size();
-
 			for (int i = 0; i < pokedexSize; i++) {
 				for (int j = 1; j < pokedexSize - i; j++) {
-					if (pokedex.get(j - 1).getName().charAt(0) > pokedex.get(j).getName().charAt(0)) {
-
-						temp = pokedex.get(j);
-						pokedex.set(j, pokedex.get(j - 1));
-						pokedex.set(j - 1, temp);
+					if (currentPokedex.get(j - 1).getName().charAt(0) > currentPokedex.get(j).getName().charAt(0)) {
+						temp = currentPokedex.get(j);
+						currentPokedex.set(j, currentPokedex.get(j - 1));
+						currentPokedex.set(j - 1, temp);
 					}
 				}
 			}
 		}
 		azCounter++;
-		load_Pokedex_ListView(pokedex);
+		load_Pokedex_ListView(currentPokedex);
 	}
 
 	private int typCounter = 0;
 
 	@FXML
 	private void sortTYP_Pokedex_ButtonClicked(ActionEvent event) throws SQLException {
-		Database.initData("pokedex");
-		ArrayList<PokedexPoki> pokedex;
-		pokedex = Database.getPokedex();
 		PokedexPoki temp;
-
+		int pokedexSize = currentPokedex.size();
 		if (typCounter % 2 == 1) {
-			int pokedexSize = pokedex.size();
-
 			for (int i = 0; i < pokedexSize; i++) {
 				for (int j = 1; j < pokedexSize - i; j++) {
-					if (pokedex.get(j - 1).getTyp().charAt(0) < pokedex.get(j).getTyp().charAt(0)) {
-
-						temp = pokedex.get(j - 1);
-						pokedex.set(j - 1, pokedex.get(j));
-						pokedex.set(j, temp);
+					if (currentPokedex.get(j - 1).getTyp().charAt(0) < currentPokedex.get(j).getTyp().charAt(0)) {
+						temp = currentPokedex.get(j - 1);
+						currentPokedex.set(j - 1, currentPokedex.get(j));
+						currentPokedex.set(j, temp);
 					}
 				}
 			}
 		} else if (typCounter % 2 == 0) {
-			int pokedexSize = pokedex.size();
-
 			for (int i = 0; i < pokedexSize; i++) {
 				for (int j = 1; j < pokedexSize - i; j++) {
-					if (pokedex.get(j - 1).getTyp().charAt(0) > pokedex.get(j).getTyp().charAt(0)) {
-
-						temp = pokedex.get(j);
-						pokedex.set(j, pokedex.get(j - 1));
-						pokedex.set(j - 1, temp);
+					if (currentPokedex.get(j - 1).getTyp().charAt(0) > currentPokedex.get(j).getTyp().charAt(0)) {
+						temp = currentPokedex.get(j);
+						currentPokedex.set(j, currentPokedex.get(j - 1));
+						currentPokedex.set(j - 1, temp);
 					}
 				}
 			}
 		}
 		typCounter++;
-		load_Pokedex_ListView(pokedex);
+		load_Pokedex_ListView(currentPokedex);
 	}
 
 	@Override
@@ -181,18 +166,75 @@ public class AdminPokedexController extends Main implements Initializable {
 			e.printStackTrace();
 		}
 		try {
-			load_Pokedex_ListView(Database.getPokedex());
+			load_Pokedex_ListView(pokedex);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void load_Pokedex_ListView(ArrayList<PokedexPoki> importPokilist) throws SQLException {
+	@FXML
+	private void searchName(ActionEvent event) throws SQLException {
+		if (!searchNameTF.getText().isEmpty()) {
+			String search = searchNameTF.getText().toString().toLowerCase();
+			filteredPokedex.clear();
+
+			for (int i = 0; i < pokedex.size(); i++) {
+				if (pokedex.get(i).getName().toLowerCase().contains(search)) {
+					filteredPokedex.add(pokedex.get(i));
+				}
+			}
+			currentPokedex = filteredPokedex;
+			load_Pokedex_ListView(filteredPokedex);
+		} else if (searchNameTF.getText().isEmpty() && searchTypTF.getText().isEmpty()
+				&& searchIdTF.getText().isEmpty()) {
+			load_Pokedex_ListView(pokedex);
+		}
+	}
+
+	@FXML
+	private void searchTyp(ActionEvent event) throws SQLException {
+		if (!searchTypTF.getText().isEmpty()) {
+			String search = searchTypTF.getText().toString().toLowerCase();
+			filteredPokedex.clear();
+
+			for (int i = 0; i < pokedex.size(); i++) {
+				if (pokedex.get(i).getTyp().toLowerCase().contains(search)) {
+					filteredPokedex.add(pokedex.get(i));
+				}
+			}
+			currentPokedex = filteredPokedex;
+			load_Pokedex_ListView(filteredPokedex);
+		} else if (searchNameTF.getText().isEmpty() && searchTypTF.getText().isEmpty()
+				&& searchIdTF.getText().isEmpty()) {
+			load_Pokedex_ListView(pokedex);
+		}
+	}
+
+	@FXML
+	private void searchID(ActionEvent event) throws SQLException {
+		if (!(searchIdTF.getText().isEmpty())) {
+			String search = searchIdTF.getText().toString().toLowerCase();
+			filteredPokedex.clear();
+
+			for (int i = 0; i < pokedex.size(); i++) {
+				if (pokedex.get(i).getId() == Integer.parseInt(search)) {
+					filteredPokedex.add(pokedex.get(i));
+				}
+			}
+			currentPokedex = filteredPokedex;
+			load_Pokedex_ListView(filteredPokedex);
+		} else if (searchNameTF.getText().isEmpty() && searchTypTF.getText().isEmpty()
+				&& searchIdTF.getText().isEmpty()) {
+			load_Pokedex_ListView(pokedex);
+		}
+	}
+
+	public void load_Pokedex_ListView(ArrayList<PokedexPoki> pokedex) throws SQLException {
 		pokedex_list.removeAll(pokedex_list);
 		pokedex_listview.getItems().clear();
 		;
 
-		importPokilist.forEach(pp -> {
+		pokedex.forEach(pp -> {
 			pokedex_list.addAll(pp.getName());
 		});
 
