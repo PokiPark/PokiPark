@@ -29,6 +29,7 @@ public class MainMenuController extends Main implements Initializable {
 
 	@FXML public void logoutClicked(ActionEvent event) throws IOException {
 		changeStageTo(event, "Login");
+		Database.setActiveUser(null);
 	}
 	
 	@Override public void initialize(URL url, ResourceBundle rb) {
