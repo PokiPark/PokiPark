@@ -9,28 +9,26 @@ import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.scene.image.*;
 import javafx.scene.input.*;
 
 public class PokedexController extends Main implements Initializable {
 
 	ObservableList<String> pokedex_list = FXCollections.observableArrayList();
 
-	@FXML
-	private Label pokeInfo_Label;
+	@FXML private Label pokeInfo_Label;
 
-	@FXML
-	private Label pokedexEntry_Label;
+	@FXML private Label pokedexEntry_Label;
 
-	@FXML
-	private ListView<String> pokedex_listview;
+	@FXML private ImageView poke_ImageView;
+	
+	@FXML private ListView<String> pokedex_listview;
 
-	@FXML
-	private void mainmenuClicked(ActionEvent event) throws IOException {
+	@FXML private void mainmenuClicked(ActionEvent event) throws IOException {
 		changeStageTo(event, "MainMenu");
 	}
 
-	@FXML
-	private void open_PokeInfo_ListViewClicked(MouseEvent event) {
+	@FXML private void open_PokeInfo_ListViewClicked(MouseEvent event) {
 		String clickedPoki = pokedex_listview.getSelectionModel().getSelectedItem();
 
 		boolean pokeFound = false;
@@ -40,28 +38,29 @@ public class PokedexController extends Main implements Initializable {
 						+ Database.getPokedex().get(i).getTyp());
 				pokedexEntry_Label.setText(Database.getPokedex().get(i).getPokedexEntry().toString());
 				pokedexEntry_Label.setWrapText(true);
+				try {
+					poke_ImageView.setImage(new Image(Database.getPokedex().get(i).getName() + ".png"));
+				} catch (NullPointerException e){
+					e.printStackTrace();
+				}
 				pokeFound = true;
 			}
 		}
 	}
 
-	@FXML
-	private void sortId_Pokedex_ButtonClicked(ActionEvent event) throws SQLException {
+	@FXML private void sortId_Pokedex_ButtonClicked(ActionEvent event) throws SQLException {
 
 	}
 	
-	@FXML
-	private void sortAtoZ_Pokedex_ButtonClicked(ActionEvent event) {
+	@FXML private void sortAtoZ_Pokedex_ButtonClicked(ActionEvent event) {
 		
 	}
 	
-	@FXML
-	private void sortTYP_Pokedex_ButtonClicked(ActionEvent event) {
+	@FXML private void sortTYP_Pokedex_ButtonClicked(ActionEvent event) {
 		
 	}
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	@Override public void initialize(URL url, ResourceBundle rb) {
 		try {
 			Database.initData("pokedex");
 		} catch (SQLException e) {
