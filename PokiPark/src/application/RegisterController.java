@@ -12,20 +12,14 @@ import javafx.scene.control.*;
 
 public class RegisterController extends Main {
 
-	@FXML
-	private Label errorLabel;
-	@FXML
-	private TextField username;
-	@FXML
-	private TextField email;
+	@FXML private Label errorLabel;
+	@FXML private TextField username;
+	@FXML private TextField email;
 
-	@FXML
-	private PasswordField password;
-	@FXML
-	private PasswordField passwordCheck;
+	@FXML private PasswordField password;
+	@FXML private PasswordField passwordCheck;
 
-	@FXML
-	public void registerClicked(ActionEvent event) throws SQLException, IOException {
+	@FXML public void registerClicked(ActionEvent event) throws SQLException, IOException {
 		if (registerDataIsValid(getUsername(), getEmail(), getPassword(), getPasswordCheck())) {
 			Database.addToUserTable(getUsername(), getPassword(), getEmail());
 			errorLabel.setText("");
@@ -33,14 +27,13 @@ public class RegisterController extends Main {
 		}
 	}
 
-	@FXML
-	public void loginClicked(ActionEvent event) throws IOException {
+	@FXML public void loginClicked(ActionEvent event) throws IOException {
 		changeStageTo(event, "Login");
 	}
 
 	private boolean registerDataIsValid(String username, String email, String password, String passwordCheck)
 			throws SQLException {
-		Database.initData("userbank");
+		Database.initData("usertable");
 		ArrayList<User> userlist = Database.getUserlist();
 		if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty()) {
 			errorLabel.setText("Gehe sicher, dass alle Felder ausgefüllt sind.");

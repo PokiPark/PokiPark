@@ -9,20 +9,14 @@ import javafx.scene.control.*;
 
 public class LoginController extends Main {
 
-	@FXML
-	Label errorLabel;
-	@FXML
-	TextField username;
-	@FXML
-	PasswordField password;
-	@FXML
-	Button login;
-	@FXML
-	Hyperlink register;
+	@FXML Label errorLabel;
+	@FXML TextField username;
+	@FXML PasswordField password;
+	@FXML Button login;
+	@FXML Hyperlink register;
 
-	@FXML
-	private void loginClicked(ActionEvent event) throws IOException, SQLException {
-		Database.initData("userbank");
+	@FXML private void loginClicked(ActionEvent event) throws IOException, SQLException {
+		Database.initData("usertable");
 		Database.getUserlist().forEach((item) -> {
 			// System.out.println(Database.getUserlist());
 			if (username.getText().toString().equals(item.getUsername())
@@ -50,8 +44,7 @@ public class LoginController extends Main {
 		password.clear();
 	}
 
-	@FXML
-	private void registerClicked(ActionEvent event) throws IOException {
+	@FXML private void registerClicked(ActionEvent event) throws IOException {
 		changeStageTo(event, "Register");
 	}
 

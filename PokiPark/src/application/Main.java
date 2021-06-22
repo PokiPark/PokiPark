@@ -1,8 +1,6 @@
 package application;
 
 import java.io.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.application.Application;
 import javafx.event.*;
@@ -12,8 +10,8 @@ import javafx.scene.layout.*;
 import javafx.fxml.*;
 
 public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) {
+	
+	@Override public void start(Stage primaryStage) {
 		try {
 			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("Login.fxml"));
 			Scene scene = new Scene(root, 600, 500);
