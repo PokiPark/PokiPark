@@ -20,11 +20,11 @@
          </children></AnchorPane>
    </center>
    <top>
-      <AnchorPane prefHeight="85.0" prefWidth="600.0" style="-fx-background-color: lightGray;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="85.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" layoutX="394.0" layoutY="34.0" prefHeight="17.0" prefWidth="125.0" text="Benutzername">
+            <Label fx:id="usernameLabel" alignment="TOP_RIGHT" layoutX="326.0" layoutY="18.0" prefHeight="50.0" prefWidth="192.0" textFill="#fffef0">
                <font>
-                  <Font name="ArtifaktElement-Regular" size="14.0" />
+                  <Font name="ArtifaktElement-Regular" size="18.0" />
                </font>
             </Label>
             <Button layoutX="29.0" layoutY="28.0" mnemonicParsing="false" onAction="#pokedexClicked" style="-fx-background-color: #ffe14b;" text="Pokedex">
@@ -40,7 +40,7 @@
          </children></AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: lightGray;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
             <Button layoutX="527.0" layoutY="10.0" mnemonicParsing="false" onAction="#logoutClicked" style="-fx-background-color: white; -fx-border-color: #ffe14b;" text="Logout" textFill="#814288">
                <font>

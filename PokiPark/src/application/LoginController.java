@@ -21,7 +21,7 @@ public class LoginController extends Main {
 			// System.out.println(Database.getUserlist());
 			if (username.getText().toString().equals(item.getUsername())
 					&& password.getText().toString().equals(item.getPassword())) {
-				item.isActiveUser();
+				item.setActiveUser();
 				if (item.isAdmin()) {
 					try {
 						changeStageTo(event, "AdminMainMenu");

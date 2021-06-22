@@ -6,7 +6,7 @@ public class User {
 
 	private int id;
 	private String username, password, email;
-	private boolean isActiveUser = false, isAdmin;
+	private boolean isAdmin;
 
 	@Override
 	public String toString() {
@@ -56,13 +56,8 @@ public class User {
 		this.email = email;
 	}
 
-	public boolean isActiveUser() {
-		return isActiveUser;
-	}
-
-	public void setActiveUser(boolean isActiveUser) {
-		Database.activeUser = this;
-		this.isActiveUser = isActiveUser;
+	public void setActiveUser() {
+		Database.setActiveUser(this);
 	}
 
 	public void setAdmin(int isAdmin) {

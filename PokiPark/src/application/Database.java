@@ -141,4 +141,8 @@ public class Database {
 	public static ArrayList<User> getUserlist() {
 		return userlist;
 	}
+	
+	public static void setActiveUser(User user) {
+		activeUser = user;
+	}
 }

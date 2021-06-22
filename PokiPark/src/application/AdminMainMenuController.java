@@ -35,5 +35,6 @@ public class AdminMainMenuController extends Main implements Initializable {
 	
 	@Override public void initialize(URL url, ResourceBundle rb) {
 		usernameLabel.setText(Database.activeUser.getUsername() + " (Admin)");
+		usernameLabel.setWrapText(true);
 	}
 }
