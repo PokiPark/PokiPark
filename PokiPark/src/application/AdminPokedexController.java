@@ -81,5 +81,26 @@ public class AdminPokedexController extends Main implements Initializable {
 		});
 
 		pokedex_listview.getItems().addAll(pokedex_list);
+		
+		pokedex_listview.setCellFactory(param -> new ListCell<String>() {
+            private ImageView littlePoke_ImageView = new ImageView();
+            @Override
+            public void updateItem(String name, boolean empty) {
+                super.updateItem(name, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    littlePoke_ImageView.setImage(new Image("Vulpix.png"));
+                    littlePoke_ImageView.setFitHeight(14);
+                    littlePoke_ImageView.setFitWidth(14);
+
+                    System.out.println(name + ".png");
+                    
+                    setText(name);
+                    setGraphic(littlePoke_ImageView);
+                }
+            }
+        });
 	}
 }
