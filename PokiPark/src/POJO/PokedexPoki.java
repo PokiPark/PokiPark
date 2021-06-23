@@ -3,7 +3,7 @@ package POJO;
 public class PokedexPoki {
 
 	int id;
-	String name, typ, img_Path, firstEvo, secondEvo, thirdEvo, pokedexEntry;
+	String name, typ, firstEvo, secondEvo, thirdEvo, pokedexEntry;
 
 	public int getId() {
 		return id;
@@ -27,14 +27,6 @@ public class PokedexPoki {
 
 	public void setTyp(String typ) {
 		this.typ = typ;
-	}
-
-	public String getImg_Path() {
-		return img_Path;
-	}
-
-	public void setImg_Path(String img_Path) {
-		this.img_Path = img_Path;
 	}
 
 	public String getFirstEvo() {

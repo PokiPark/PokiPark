@@ -32,13 +32,7 @@ public class PokedexController extends Main implements Initializable {
 	private ListView<String> pokedex_listview;
 
 	@FXML
-	private TextField searchNameTF;
-
-	@FXML
-	private TextField searchTypTF;
-
-	@FXML
-	private TextField searchIdTF;
+	private TextField searchTF;
 
 	@FXML
 	private void mainmenuClicked(ActionEvent event) throws IOException {
@@ -173,58 +167,20 @@ public class PokedexController extends Main implements Initializable {
 	}
 
 	@FXML
-	private void searchName(ActionEvent event) throws SQLException {
-		if (!searchNameTF.getText().isEmpty()) {
-			String search = searchNameTF.getText().toString().toLowerCase();
+	private void searchAction(ActionEvent event) throws SQLException {
+		if (!searchTF.getText().isEmpty()) {
+			String search = searchTF.getText().toString().toLowerCase();
 			filteredPokedex.clear();
 
-			for (int i = 0; i < pokedex.size(); i++) {
-				if (pokedex.get(i).getName().toLowerCase().contains(search)) {
-					filteredPokedex.add(pokedex.get(i));
+			pokedex.forEach(pp -> {
+				if (pp.getName().toLowerCase().contains(search) | pp.getTyp().toLowerCase().equals(search)
+						| String.valueOf(pp.getId()).contains(search)) {
+					filteredPokedex.add(pp);
 				}
-			}
+			});
 			currentPokedex = filteredPokedex;
 			load_Pokedex_ListView(filteredPokedex);
-		} else if (searchNameTF.getText().isEmpty() && searchTypTF.getText().isEmpty()
-				&& searchIdTF.getText().isEmpty()) {
-			load_Pokedex_ListView(pokedex);
-		}
-	}
-
-	@FXML
-	private void searchTyp(ActionEvent event) throws SQLException {
-		if (!searchTypTF.getText().isEmpty()) {
-			String search = searchTypTF.getText().toString().toLowerCase();
-			filteredPokedex.clear();
-
-			for (int i = 0; i < pokedex.size(); i++) {
-				if (pokedex.get(i).getTyp().toLowerCase().contains(search)) {
-					filteredPokedex.add(pokedex.get(i));
-				}
-			}
-			currentPokedex = filteredPokedex;
-			load_Pokedex_ListView(filteredPokedex);
-		} else if (searchNameTF.getText().isEmpty() && searchTypTF.getText().isEmpty()
-				&& searchIdTF.getText().isEmpty()) {
-			load_Pokedex_ListView(pokedex);
-		}
-	}
-
-	@FXML
-	private void searchID(ActionEvent event) throws SQLException {
-		if (!(searchIdTF.getText().isEmpty())) {
-			String search = searchIdTF.getText().toString().toLowerCase();
-			filteredPokedex.clear();
-
-			for (int i = 0; i < pokedex.size(); i++) {
-				if (pokedex.get(i).getId() == Integer.parseInt(search)) {
-					filteredPokedex.add(pokedex.get(i));
-				}
-			}
-			currentPokedex = filteredPokedex;
-			load_Pokedex_ListView(filteredPokedex);
-		} else if (searchNameTF.getText().isEmpty() && searchTypTF.getText().isEmpty()
-				&& searchIdTF.getText().isEmpty()) {
+		} else {
 			load_Pokedex_ListView(pokedex);
 		}
 	}

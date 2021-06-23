@@ -71,7 +71,6 @@ public class Database {
 				pp.setId(resultSet.getInt("id"));
 				pp.setName(resultSet.getString("name"));
 				pp.setTyp(resultSet.getString("typ"));
-				pp.setImg_Path(resultSet.getString("img_path"));
 				pp.setFirstEvo(resultSet.getString("firstEvo"));
 				pp.setSecondEvo(resultSet.getString("secondEvo"));
 				pp.setThirdEvo(resultSet.getString("thirdEvo"));
@@ -109,12 +108,12 @@ public class Database {
 		closeConnection();
 	}
 
-	public static void addToPokedexTable(String name, String typ, String img_path, String firstEvo, String secondEvo,
+	public static void addToPokedexTable(String name, String typ, String firstEvo, String secondEvo,
 			String thirdEvo, String pokedexEntry, int id) throws SQLException {
 		openConnection();
 
-		String sqlCommand = "INSERT INTO pokedex (name, typ, img_path, firstEvo, secondEvo, thirdEvo, pokedexEntry, id) VALUES ('"
-				+ name + "', '" + typ + "', '" + img_path + "', '" + firstEvo + "', '" + secondEvo + "', '" + thirdEvo
+		String sqlCommand = "INSERT INTO pokedex (name, typ, firstEvo, secondEvo, thirdEvo, pokedexEntry, id) VALUES ('"
+				+ name + "', '" + typ + "', '" + firstEvo + "', '" + secondEvo + "', '" + thirdEvo
 				+ "', '" + pokedexEntry + "', '" + id + "')";
 		statement.execute(sqlCommand);
 

@@ -23,25 +23,15 @@
    <bottom>
       <AnchorPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: orange;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#mainmenuClicked" style="-fx-background-color: white;" text="Hauptmenu">
+            <Button layoutX="480.0" layoutY="13.0" mnemonicParsing="false" onAction="#mainmenuClicked" style="-fx-background-color: white;" text="Hauptmenu">
                <font>
                   <Font name="ArtifaktElement-Regular" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="133.0" layoutY="12.0" mnemonicParsing="false" onAction="#sortAtoZ_Pokedex_ButtonClicked" text="A-Z" />
-            <Button layoutX="109.0" layoutY="12.0" mnemonicParsing="false" onAction="#sortId_Pokedex_ButtonClicked" text="#" />
-            <Button layoutX="170.0" layoutY="12.0" mnemonicParsing="false" onAction="#sortTYP_Pokedex_ButtonClicked" text="TYP" />
-            <TextField fx:id="searchNameTF" layoutX="216.0" layoutY="12.0" onAction="#searchName" prefHeight="25.0" prefWidth="125.0" promptText="suche nach Name..">
-               <font>
-                  <Font name="ArtifaktElement-Regular" size="12.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="searchTypTF" layoutX="343.0" layoutY="12.0" onAction="#searchTyp" prefHeight="25.0" prefWidth="113.0" promptText="suche nach Typ..">
-               <font>
-                  <Font name="ArtifaktElement-Regular" size="12.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="searchIdTF" layoutX="458.0" layoutY="12.0" onAction="#searchID" prefHeight="25.0" prefWidth="102.0" promptText="suche nach ID..">
+            <Button layoutX="44.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortAtoZ_Pokedex_ButtonClicked" text="A-Z" />
+            <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortId_Pokedex_ButtonClicked" text="#" />
+            <Button layoutX="87.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortTYP_Pokedex_ButtonClicked" text="TYP" />
+            <TextField fx:id="searchTF" layoutX="147.0" layoutY="13.0" onAction="#searchAction" prefHeight="25.0" prefWidth="251.0" promptText="Suche nach Name, Typ oder ID..">
                <font>
                   <Font name="ArtifaktElement-Regular" size="12.0" />
                </font>
