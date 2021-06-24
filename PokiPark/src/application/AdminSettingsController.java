@@ -4,15 +4,20 @@ import java.io.*;
 
 import javafx.event.*;
 import javafx.fxml.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-public class AdminSettingsController extends Main {
+public class AdminSettingsController {
 
 	@FXML
 	private AnchorPane rootPane;
+	
+	@FXML
+	private ListView<String> settings_LV;
 
 	@FXML
-	private void mainmenuClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "AdminMainMenu");
+	private void mainmenu_buttonAction(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("AdminMainMenu.fxml"));
+		rootPane.getChildren().setAll(pane);
 	}
 }

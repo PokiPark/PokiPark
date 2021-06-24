@@ -5,12 +5,8 @@ import java.sql.*;
 
 import javafx.event.*;
 import javafx.fxml.*;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
 public class LoginController {
 
@@ -36,16 +32,8 @@ public class LoginController {
 				item.setActiveUser();
 				if (item.isAdmin()) {
 					try {
-						Node source = (Node) event.getSource();
-						Stage oldStage = (Stage) source.getScene().getWindow();
-						oldStage.close();
-
-						FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("AdminMainMenu.fxml"));
-						Parent root = (Parent) fxmlloader.load();
-						Stage stage = new Stage();
-						stage.setTitle("PokiPark | Admin-Hauptmenu");
-						stage.setScene(new Scene(root));
-						stage.show();
+						AnchorPane pane = FXMLLoader.load(getClass().getResource("AdminMainMenu.fxml"));
+						rootPane.getChildren().setAll(pane);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

@@ -14,7 +14,7 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 
-public class AdminPokedexController extends Main implements Initializable {
+public class AdminPokedexController implements Initializable {
 
 	private ObservableList<String> pokedex_list = FXCollections.observableArrayList();
 	private ArrayList<PokedexPoki> pokedex = Database.getPokedex(), currentPokedex = pokedex,
@@ -40,7 +40,8 @@ public class AdminPokedexController extends Main implements Initializable {
 
 	@FXML
 	private void mainmenuClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "AdminMainMenu");
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("AdminMainMenu.fxml"));
+		rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML

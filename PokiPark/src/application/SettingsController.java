@@ -4,15 +4,20 @@ import java.io.*;
 
 import javafx.event.*;
 import javafx.fxml.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-public class SettingsController extends Main {
+public class SettingsController {
 
 	@FXML
 	private AnchorPane rootPane;
+	
+	@FXML
+	private ListView<String> settings_LV;
 
 	@FXML
-	private void mainmenuClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "Pokedex");
+	private void mainmenu_buttonAction(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+		rootPane.getChildren().setAll(pane);
 	}
 }

@@ -8,36 +8,38 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
-import javafx.scene.input.*;
 import javafx.scene.layout.*;
 
-public class MainMenuController extends Main implements Initializable {
+public class MainMenuController implements Initializable {
 
 	@FXML
 	private AnchorPane rootPane;
 	@FXML
-	private ImageView avatar;
+	private Label avatar;
 	@FXML
 	private Label usernameLabel;
-
-	@FXML
-	public void avatarClicked(MouseEvent event) {
-		// Menu klappt sich aus mit >Einstellungen und >Statistik und so
-	}
+	
+	private ContextMenu cm = new ContextMenu();
+	private MenuItem statistics_MI = new MenuItem("Statistik");
+	private MenuItem settings_MI = new MenuItem("Einstellungen");
+	private MenuItem logout_MI = new MenuItem("Ausloggen");
 
 	@FXML
 	public void pokedexClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "Pokedex");	
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("Pokedex.fxml"));
+		rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	public void zonesClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "Zones");
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("Zones.fxml"));
+		rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	public void logoutClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "Login");
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		rootPane.getChildren().setAll(pane);
 		Database.setActiveUser(null);
 	}
 
@@ -45,5 +47,46 @@ public class MainMenuController extends Main implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		usernameLabel.setText(Database.activeUser.getUsername());
 		usernameLabel.setWrapText(true);
+		
+		statistics_MI.setOnAction(new EventHandler<ActionEvent>( ) {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					AnchorPane pane = FXMLLoader.load(getClass().getResource("Statistics.fxml"));
+					rootPane.getChildren().setAll(pane);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		settings_MI.setOnAction(new EventHandler<ActionEvent>( ) {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					AnchorPane pane = FXMLLoader.load(getClass().getResource("Settings.fxml"));
+					rootPane.getChildren().setAll(pane);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		logout_MI.setOnAction(new EventHandler<ActionEvent>( ) {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
+					rootPane.getChildren().setAll(pane);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		cm.getItems().addAll(statistics_MI, settings_MI, logout_MI);
+		avatar.setContextMenu(cm);
+		ImageView iv = new ImageView(new Image("Avatar.png"));
+		iv.setFitHeight(60);
+		iv.setFitWidth(60);
+		avatar.setGraphic(iv);
 	}
 }
