@@ -9,26 +9,38 @@ import POJO.User;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.*;
 
-public class RegisterController extends Main {
+public class RegisterController {
 
-	@FXML private Label errorLabel;
-	@FXML private TextField username;
-	@FXML private TextField email;
+	@FXML
+	private AnchorPane rootPane;
+	@FXML
+	private Label errorLabel;
+	@FXML
+	private TextField username;
+	@FXML
+	private TextField email;
 
-	@FXML private PasswordField password;
-	@FXML private PasswordField passwordCheck;
+	@FXML
+	private PasswordField password;
+	@FXML
+	private PasswordField passwordCheck;
 
-	@FXML public void registerClicked(ActionEvent event) throws SQLException, IOException {
+	@FXML
+	public void registerClicked(ActionEvent event) throws SQLException, IOException {
 		if (registerDataIsValid(getUsername(), getEmail(), getPassword(), getPasswordCheck())) {
 			Database.addToUserTable(getUsername(), getPassword(), getEmail());
 			errorLabel.setText("");
-			changeStageTo(event, "Login");
+			AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			rootPane.getChildren().setAll(pane);
 		}
 	}
 
-	@FXML public void loginClicked(ActionEvent event) throws IOException {
-		changeStageTo(event, "Login");
+	@FXML
+	public void loginClicked(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		rootPane.getChildren().setAll(pane);
 	}
 
 	private boolean registerDataIsValid(String username, String email, String password, String passwordCheck)

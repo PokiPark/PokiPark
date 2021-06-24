@@ -1,9 +1,9 @@
 package application;
 
-import java.io.*;
+import java.io.IOException;
 
 import javafx.application.Application;
-import javafx.event.*;
+import javafx.event.ActionEvent;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -13,7 +13,7 @@ public class Main extends Application {
 	
 	@Override public void start(Stage primaryStage) {
 		try {
-			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("Login.fxml"));
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Login.fxml"));
 			Scene scene = new Scene(root, 600, 500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("PokiPark | Login");
@@ -37,6 +37,7 @@ public class Main extends Application {
 		stage.show();
 	}
 
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

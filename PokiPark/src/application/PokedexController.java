@@ -12,12 +12,16 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.*;
 
 public class PokedexController extends Main implements Initializable {
 
 	private ObservableList<String> pokedex_list = FXCollections.observableArrayList();
 	private ArrayList<PokedexPoki> pokedex = Database.getPokedex(), currentPokedex = pokedex,
 			filteredPokedex = new ArrayList<PokedexPoki>();
+
+	@FXML
+	private AnchorPane rootPane;
 
 	@FXML
 	private Label pokeInfo_Label;
