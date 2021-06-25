@@ -30,7 +30,8 @@ public class RegisterController {
 	@FXML
 	public void registerClicked(ActionEvent event) throws SQLException, IOException {
 		if (registerDataIsValid(getUsername(), getEmail(), getPassword(), getPasswordCheck())) {
-			Database.addToUserTable(getUsername(), getPassword(), getEmail());
+			Database.sendSqlCommand("INSERT INTO usertable (username, password, email, id, admin) VALUES ('"
+					+ getUsername() + "', '" + getPassword() + "','" + getEmail() + "', NULL, 0);");
 			errorLabel.setText("");
 			AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
 			rootPane.getChildren().setAll(pane);
