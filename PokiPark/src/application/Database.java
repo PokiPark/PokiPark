@@ -90,7 +90,7 @@ public class Database {
 		openConnection();
 
 		String sqlCommand = "INSERT INTO userbank (username, password, email, id, admin) VALUES ('" + username + "', '"
-				+ password + "', '" + email + "', NULL,  0)";
+				+ password + "', '" + email + "', NULL,  0);";
 		statement.execute(sqlCommand);
 
 		closeConnection();
@@ -101,7 +101,7 @@ public class Database {
 		openConnection();
 
 		String sqlCommand = "INSERT INTO pokibank (name, typ, anzahl, id) VALUES ('" + name + "', '" + typ + "', '"
-				+ anzahl + "', '" + id + "')";
+				+ anzahl + "', '" + id + "');";
 		statement.execute(sqlCommand);
 
 		closeConnection();
@@ -113,7 +113,7 @@ public class Database {
 
 		String sqlCommand = "INSERT INTO pokedex (name, typ, firstEvo, secondEvo, thirdEvo, pokedexEntry, id) VALUES ('"
 				+ name + "', '" + typ + "', '" + firstEvo + "', '" + secondEvo + "', '" + thirdEvo + "', '"
-				+ pokedexEntry + "', '" + id + "')";
+				+ pokedexEntry + "', '" + id + "');";
 		statement.execute(sqlCommand);
 
 		closeConnection();
@@ -122,7 +122,7 @@ public class Database {
 	public static void removeFromTable(String table_name, int id) throws SQLException {
 		openConnection();
 
-		String sqlCommand = "DELETE FROM '" + table_name + "' WHERE '" + table_name + "'.'id' = " + id;
+		String sqlCommand = "DELETE FROM '" + table_name + "' WHERE '" + table_name + "'.'id' = " + id + ";";
 		statement.execute(sqlCommand);
 
 		closeConnection();

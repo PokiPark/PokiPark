@@ -523,8 +523,11 @@ public class AdminSettingsController extends RegisterController implements Initi
 		contentPane_TF6.setVisible(false);
 
 		contentPane_L.setFont(new Font("Artifakt Element", 15));
-		contentPane_L.setText("ID:\t" + Database.getUserlist().size());
+		contentPane_L.setText("\tNeuer Nutzer:");
+		contentPane_TF1.setPromptText("Benutzername");
 		contentPane_TF1.setText(settingsSpecified_TF.getText().toString());
+		contentPane_TF2.setPromptText("Email");
+		contentPane_TF3.setPromptText("Passwort");
 		settingsSpecified_TF.clear();
 		contentPane_B3.setText("Bestätigen");
 		contentPane_B5.setText("Adminrechte hinzufügen");
@@ -639,7 +642,6 @@ public class AdminSettingsController extends RegisterController implements Initi
 		String username = contentPane_TF1.getText().toString();
 		String email = contentPane_TF2.getText().toString();
 		String password = contentPane_TF3.getText().toString();
-		int id = Database.getUserlist().size();
 		int admin;
 
 		if (isUserAdmin)
@@ -650,7 +652,7 @@ public class AdminSettingsController extends RegisterController implements Initi
 		if (usernameIsValid(Database.getUserlist(), username) && emailIsValid(Database.getUserlist(), email)
 				&& passwordIsValid(password))
 			Database.sendSqlCommand("INSERT INTO usertable (username, password, email, id, admin) VALUES ('" + username
-					+ "', '" + password + "', '" + email + "', " + id + ", " + admin + ";");
+					+ "', '" + password + "', '" + email + "', NULL, " + admin + ");");
 	}
 
 	@Override
