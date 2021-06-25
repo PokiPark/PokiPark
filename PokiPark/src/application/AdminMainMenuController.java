@@ -20,9 +20,10 @@ public class AdminMainMenuController implements Initializable {
 	private Label usernameLabel;
 	
 	private ContextMenu cm = new ContextMenu();
-	private MenuItem statistics_MI = new MenuItem("Statistik");
+	//private MenuItem statistics_MI = new MenuItem("Statistik");
 	private MenuItem settings_MI = new MenuItem("Einstellungen");
 	private MenuItem logout_MI = new MenuItem("Ausloggen");
+	private MenuItem quit_MI = new MenuItem("Verlassen");
 
 	@FXML
 	public void pokedexClicked(ActionEvent event) throws IOException {
@@ -48,7 +49,7 @@ public class AdminMainMenuController implements Initializable {
 		usernameLabel.setText(Database.activeUser.getUsername());
 		usernameLabel.setWrapText(true);
 		
-		statistics_MI.setOnAction(new EventHandler<ActionEvent>( ) {
+		/*statistics_MI.setOnAction(new EventHandler<ActionEvent>( ) {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
@@ -58,7 +59,7 @@ public class AdminMainMenuController implements Initializable {
 					e.printStackTrace();
 				}
 			}
-		});
+		});*/
 		settings_MI.setOnAction(new EventHandler<ActionEvent>( ) {
 			@Override
 			public void handle(ActionEvent event) {
@@ -81,8 +82,14 @@ public class AdminMainMenuController implements Initializable {
 				}
 			}
 		});
+		quit_MI.setOnAction(new EventHandler<ActionEvent>( ) {
+			@Override
+			public void handle(ActionEvent event) {
+				
+			}
+		});
 		
-		cm.getItems().addAll(statistics_MI, settings_MI, logout_MI);
+		cm.getItems().addAll(/*statistics_MI, */settings_MI, logout_MI, quit_MI);
 		avatar.setContextMenu(cm);
 		ImageView iv = new ImageView(new Image("Avatar.png"));
 		iv.setFitHeight(60);

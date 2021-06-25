@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
       <BorderPane layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0">
@@ -39,12 +38,12 @@
                         <Font name="ArtifaktElement-Regular" size="14.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="password" layoutX="379.0" layoutY="56.0" prefHeight="25.0" prefWidth="175.0" promptText="Passwort">
+                  <PasswordField fx:id="password" layoutX="379.0" layoutY="56.0" onAction="#loginClicked" prefHeight="25.0" prefWidth="175.0" promptText="Passwort">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="13.0" />
                      </font>
                   </PasswordField>
-                  <TextField fx:id="username" layoutX="379.0" layoutY="26.0" prefHeight="25.0" prefWidth="175.0" promptText="Benutzername">
+                  <TextField fx:id="username" layoutX="379.0" layoutY="26.0" onAction="#loginClicked" prefHeight="25.0" prefWidth="175.0" promptText="Benutzername">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="13.0" />
                      </font>

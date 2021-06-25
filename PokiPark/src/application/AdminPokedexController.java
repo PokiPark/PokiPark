@@ -193,7 +193,6 @@ public class AdminPokedexController implements Initializable {
 	public void load_Pokedex_ListView(ArrayList<PokedexPoki> pokedex) throws SQLException {
 		pokedex_list.removeAll(pokedex_list);
 		pokedex_listview.getItems().clear();
-		;
 
 		pokedex.forEach(pp -> {
 			pokedex_list.addAll(pp.getName());

@@ -3,7 +3,7 @@ package POJO;
 public class Poki {
 
 	private int id, anzahl = 0;
-	private String name, typ, img_path;
+	private String name, typ;
 
 	public int getId() {
 		return id;
@@ -28,15 +28,7 @@ public class Poki {
 	public void setTyp(String typ) {
 		this.typ = typ;
 	}
-
-	public String getImg_path() {
-		return img_path;
-	}
-
-	public void setImg_path(String img_path) {
-		this.img_path = img_path;
-	}
-
+	
 	public int getAnzahl() {
 		return anzahl;
 	}

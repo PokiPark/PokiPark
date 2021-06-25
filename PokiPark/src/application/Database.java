@@ -18,14 +18,14 @@ public class Database {
 	static ArrayList<User> userlist = new ArrayList<User>();
 	static ArrayList<Poki> pokilist = new ArrayList<Poki>();
 	static ArrayList<PokedexPoki> pokedex = new ArrayList<PokedexPoki>();
-	
+
 	public static User activeUser;
 
-	
 	private static void openConnection() throws SQLException {
 		connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 		statement = connection.createStatement();
 	}
+
 	private static void closeConnection() throws SQLException {
 		if (resultSet != null) {
 			resultSet.close();
@@ -37,7 +37,7 @@ public class Database {
 			connection.close();
 		}
 	}
-	
+
 	public static void initData(String table) throws SQLException {
 		openConnection();
 		resultSet = statement.executeQuery("SELECT * FROM " + table);
@@ -60,7 +60,6 @@ public class Database {
 				p.setId(resultSet.getInt("id"));
 				p.setName(resultSet.getString("name"));
 				p.setTyp(resultSet.getString("typ"));
-				p.setImg_path(resultSet.getString("img_path"));
 				p.setAnzahl(resultSet.getInt("anzahl"));
 				pokilist.add(p);
 			}
@@ -80,7 +79,7 @@ public class Database {
 		}
 		closeConnection();
 	}
-	
+
 	public static void sendSqlCommand(String sqlCommand) throws SQLException {
 		openConnection();
 		statement.execute(sqlCommand);
@@ -97,24 +96,24 @@ public class Database {
 		closeConnection();
 	}
 
-	public static void addToPokiTable(String name, String typ, String img_path, int anzahl, int id)
+	public static void addToPokiTable(String name, String typ, int anzahl, int id)
 			throws SQLException {
 		openConnection();
 
-		String sqlCommand = "INSERT INTO pokibank (name, typ, img_path, anzahl, id) VALUES ('" + name + "', '" + typ
-				+ "', '" + img_path + "', '" + anzahl + "', '" + id + "')";
+		String sqlCommand = "INSERT INTO pokibank (name, typ, anzahl, id) VALUES ('" + name + "', '" + typ + "', '"
+				+ anzahl + "', '" + id + "')";
 		statement.execute(sqlCommand);
 
 		closeConnection();
 	}
 
-	public static void addToPokedexTable(String name, String typ, String firstEvo, String secondEvo,
-			String thirdEvo, String pokedexEntry, int id) throws SQLException {
+	public static void addToPokedexTable(String name, String typ, String firstEvo, String secondEvo, String thirdEvo,
+			String pokedexEntry, int id) throws SQLException {
 		openConnection();
 
 		String sqlCommand = "INSERT INTO pokedex (name, typ, firstEvo, secondEvo, thirdEvo, pokedexEntry, id) VALUES ('"
-				+ name + "', '" + typ + "', '" + firstEvo + "', '" + secondEvo + "', '" + thirdEvo
-				+ "', '" + pokedexEntry + "', '" + id + "')";
+				+ name + "', '" + typ + "', '" + firstEvo + "', '" + secondEvo + "', '" + thirdEvo + "', '"
+				+ pokedexEntry + "', '" + id + "')";
 		statement.execute(sqlCommand);
 
 		closeConnection();
@@ -122,10 +121,10 @@ public class Database {
 
 	public static void removeFromTable(String table_name, int id) throws SQLException {
 		openConnection();
-		
+
 		String sqlCommand = "DELETE FROM '" + table_name + "' WHERE '" + table_name + "'.'id' = " + id;
 		statement.execute(sqlCommand);
-		
+
 		closeConnection();
 	}
 
@@ -140,7 +139,7 @@ public class Database {
 	public static ArrayList<User> getUserlist() {
 		return userlist;
 	}
-	
+
 	public static void setActiveUser(User user) {
 		activeUser = user;
 	}

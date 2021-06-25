@@ -69,7 +69,7 @@ public class RegisterController {
 			return true;
 	}
 
-	private boolean usernameIsValid(ArrayList<User> userlist, String username) {
+	public boolean usernameIsValid(ArrayList<User> userlist, String username) {
 		boolean usernameIsValid = true;
 
 		for (int i = 0; i < userlist.size() & usernameIsValid; i++) {
@@ -79,7 +79,7 @@ public class RegisterController {
 		return usernameIsValid;
 	}
 
-	private boolean emailIsValid(ArrayList<User> userlist, String email) {
+	public boolean emailIsValid(ArrayList<User> userlist, String email) {
 		boolean emailIsValid = true;
 
 		for (int i = 0; i < userlist.size() & emailIsValid; i++) {
@@ -89,7 +89,7 @@ public class RegisterController {
 		return emailIsValid;
 	}
 
-	private boolean emailHasCorrectSemantics(String email) {
+	public boolean emailHasCorrectSemantics(String email) {
 		Pattern at = Pattern.compile("[@]");
 		Pattern dot = Pattern.compile("[.]");
 		Matcher hasAt = at.matcher(email);
@@ -101,7 +101,7 @@ public class RegisterController {
 			return false;
 	}
 
-	private boolean passwordIsValid(String password) {
+	public boolean passwordIsValid(String password) {
 		// @Author
 		// https://stackoverflow.com/questions/1795402/check-if-a-string-contains-a-special-character
 		if (password.length() >= 8) {

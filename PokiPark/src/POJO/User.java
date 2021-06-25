@@ -8,6 +8,8 @@ public class User {
 	private String username, password, email;
 	private boolean isAdmin;
 
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
