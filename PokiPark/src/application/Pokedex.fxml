@@ -4,11 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PokedexController">
    <children>
@@ -27,14 +27,14 @@
          <bottom>
             <AnchorPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: orange;" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="501.0" layoutY="13.0" mnemonicParsing="false" onAction="#mainmenuClicked" style="-fx-background-color: white;" text="Hauptmenu">
+                  <Button layoutX="501.0" layoutY="13.0" mnemonicParsing="false" onAction="#mainmenuClicked" style="-fx-background-color: white; -fx-background-radius: 4;" text="Hauptmenu">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutX="44.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortAtoZ_Pokedex_ButtonClicked" text="A-Z" />
-                  <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortId_Pokedex_ButtonClicked" text="#" />
-                  <Button layoutX="87.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortTYP_Pokedex_ButtonClicked" text="TYP" />
+                  <Button layoutX="44.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortAtoZ_Pokedex_ButtonClicked" style="-fx-background-color: white; -fx-background-radius: 4;" text="A-Z" />
+                  <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortId_Pokedex_ButtonClicked" style="-fx-background-color: white; -fx-border-width: 2; -fx-background-radius: 4;" text="#" />
+                  <Button layoutX="87.0" layoutY="13.0" mnemonicParsing="false" onAction="#sortTYP_Pokedex_ButtonClicked" style="-fx-background-color: white; -fx-background-radius: 4;" text="TYP" />
                   <TextField fx:id="searchTF" layoutX="147.0" layoutY="13.0" onAction="#searchAction" prefHeight="25.0" prefWidth="251.0" promptText="Suche nach Name, Typ oder ID..">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="12.0" />
@@ -53,13 +53,18 @@
          <right>
             <AnchorPane prefHeight="374.0" prefWidth="452.0" style="-fx-background-color: darkGray;" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="pokeInfo_Label" layoutX="208.0" layoutY="14.0" prefHeight="175.0" prefWidth="175.0" style="-fx-background-color: white;">
+                  <ImageView fitHeight="374.0" fitWidth="452.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/pokedexBG.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="pokeInfo_Label" layoutX="261.0" layoutY="14.0" prefHeight="175.0" prefWidth="175.0" style="-fx-background-color: white;">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="poke_ImageView" fitHeight="175.0" fitWidth="175.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="pokedexEntry_Label" layoutX="15.0" layoutY="207.0" prefHeight="154.0" prefWidth="370.0" style="-fx-background-color: white;">
+                  <ImageView fx:id="poke_ImageView" fitHeight="175.0" fitWidth="175.0" layoutX="32.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="pokedexEntry_Label" layoutX="15.0" layoutY="239.0" prefHeight="122.0" prefWidth="421.0" style="-fx-background-color: white;">
                      <font>
                         <Font name="Artifakt Element Italic" size="16.0" />
                      </font>
