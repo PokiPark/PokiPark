@@ -24,10 +24,7 @@ public class PokedexController implements Initializable {
 	private AnchorPane rootPane;
 
 	@FXML
-	private Label pokeInfo_Label;
-
-	@FXML
-	private Label pokedexEntry_Label;
+	private Label pokeInfo_Label, pokedexEntry_Label;
 
 	@FXML
 	private ImageView poke_ImageView;

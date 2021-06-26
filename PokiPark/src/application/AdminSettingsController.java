@@ -23,26 +23,30 @@ public class AdminSettingsController extends RegisterController implements Initi
 	private Pane contentPane;
 
 	@FXML
-	private ListView<String> settings_LV, settingsSpecified_LV;
+	private ListView<String> settings_LV, settingsSpecified_LV, contentPane_LV;
 
 	@FXML
 	private Label contentPane_L;
 
 	@FXML
-	private TextField settingsSpecified_TF, contentPane_TF1, contentPane_TF2, contentPane_TF3, contentPane_TF4,
-			contentPane_TF5, contentPane_TF6;
+	private TextArea contentPane_TA1;
 
 	@FXML
-	private Button settingsSpecified_B, contentPane_B1, contentPane_B2, contentPane_B3, contentPane_B4, contentPane_B5,
-			contentPane_B6, contentPane_B7;
+	private TextField settingsSpecified_TF, contentPane_TF1, contentPane_TF2, contentPane_TF3, contentPane_TF4,
+			contentPane_TF5, contentPane_TF6, contentPane_TF7, contentPane_TF8, contentPane_TF9;
+
+	@FXML
+	private Button settingsSpecified_B1, settingsSpecified_B2, contentPane_B1, contentPane_B2, contentPane_B3,
+			contentPane_B4, contentPane_B5, contentPane_B6, contentPane_B7, contentPane_B8;
 
 	private ObservableList<String> settings_OL = FXCollections.observableArrayList("Account",
 			"Übersicht Benutzerkonten", "Übersicht Pokedex", "Übersicht Park-Pokis"),
-			settingsSpecified_OL = FXCollections.observableArrayList();
+			settingsSpecified_OL = FXCollections.observableArrayList(),
+			contentPane_OL = FXCollections.observableArrayList();
 
-	private int lv1_Counter, lv2_Counter;
+	private int lv1_Counter, lv2_Counter, pokedexEvolutionSize = 1;
 
-	boolean isUserAdmin;
+	private boolean isUserAdmin, pokedexEntryWasMade = false;
 
 	private User u, userTarget;
 	private PokedexPoki pokedexPokiTarget;
@@ -53,23 +57,20 @@ public class AdminSettingsController extends RegisterController implements Initi
 	@FXML
 	private void item_LV_Clicked(MouseEvent event) throws IOException, SQLException {
 
+		contentPane_L.setText(null);
 		String selection = settings_LV.getSelectionModel().getSelectedItem();
 
 		if (selection.equals("Account")) {
 			showAccountSettings();
-			lv1_Counter = 0;
 
 		} else if (selection.equals("Übersicht Benutzerkonten")) {
 			showUserList();
-			lv1_Counter = 1;
 
 		} else if (selection.equals("Übersicht Pokedex")) {
 			showPokedex();
-			lv1_Counter = 2;
 
 		} else if (selection.equals("Übersicht Park-Pokis")) {
 			showPokiList();
-			lv1_Counter = 3;
 		}
 	}
 
@@ -98,11 +99,11 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 	@FXML
 	private void settingsSpecified_TF_Action(ActionEvent event) {
-		settingsSpecified_B_Action(event);
+		settingsSpecified_B1_Action(event);
 	}
 
 	@FXML
-	private void settingsSpecified_B_Action(ActionEvent event) {
+	private void settingsSpecified_B1_Action(ActionEvent event) {
 
 		switch (lv1_Counter) {
 
@@ -113,9 +114,16 @@ public class AdminSettingsController extends RegisterController implements Initi
 		case 2:
 			contentPane_AddEntryToPokedex();
 			break;
+		}
+	}
+
+	@FXML
+	private void settingsSpecified_B2_Action(ActionEvent event) {
+
+		switch (lv1_Counter) {
 
 		case 3:
-			contentPane_AddEntryToPokiList();
+			contentPane_ChoosePokiFromPokedex();
 			break;
 		}
 	}
@@ -127,6 +135,18 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 		case 5:
 			contentPane_ShowPokedexPokiTargetSettings();
+			break;
+
+		case 9:
+			contentPane_AddEntryToPokedex();
+			break;
+
+		case 10:
+			contentPane_AddEntryToPokedex();
+			break;
+
+		case 12:
+			contentPane_ChoosePokiFromPokedex();
 			break;
 		}
 	}
@@ -157,11 +177,28 @@ public class AdminSettingsController extends RegisterController implements Initi
 			database_DeleteUserTarget();
 			break;
 
+		case 4:
+			database_DeletePokedexPokiTarget();
+			break;
+
 		case 7:
 			database_InsertNewUser();
 			break;
+
+		case 8:
+			contentPane_AddEvolution();
+			break;
+
+		case 10:
+			pokedexEntryWasMade = true;
+			contentPane_AddEntryToPokedex();
+			break;
+
+		case 12:
+			pokiTarget.setAnzahl(Integer.parseInt(contentPane_TF6.getText().toString()));
+			database_InsertNewPoki();
+			break;
 		}
-		initialize(null, null);
 	}
 
 	@FXML
@@ -177,11 +214,10 @@ public class AdminSettingsController extends RegisterController implements Initi
 			database_UpdatePokiTargetAnzahl();
 			break;
 		}
-		initialize(null, null);
 	}
 
 	@FXML
-	private void contentPane_B5_Action(ActionEvent event) {
+	private void contentPane_B5_Action(ActionEvent event) throws SQLException {
 
 		switch (lv2_Counter) {
 
@@ -191,6 +227,14 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 		case 7:
 			contentPane_SetNewUserToAdmin();
+			break;
+
+		case 8:
+			contentPane_AddPokedexEntry();
+			break;
+
+		case 9:
+			database_InsertNewPokedexEntry();
 			break;
 		}
 	}
@@ -203,6 +247,15 @@ public class AdminSettingsController extends RegisterController implements Initi
 		case 6:
 			contentPane_SubtractFromPokiCount();
 			break;
+
+		case 8:
+			pokedexEvolutionSize = 1;
+			contentPane_AddEntryToPokedex();
+			break;
+
+		case 12:
+			contentPane_SubtractFromPokiCount();
+			break;
 		}
 	}
 
@@ -213,6 +266,36 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 		case 6:
 			contentPane_AddToPokiCount();
+			break;
+
+		case 8:
+			pokedexEvolutionSize = 3;
+			contentPane_AddEntryToPokedex();
+			break;
+
+		case 12:
+			contentPane_AddToPokiCount();
+			break;
+		}
+	}
+
+	@FXML
+	private void contentPane_B8_Action(ActionEvent event) {
+		switch (lv2_Counter) {
+
+		case 8:
+			pokedexEvolutionSize = 2;
+			contentPane_AddEntryToPokedex();
+			break;
+		}
+	}
+
+	@FXML
+	private void contentPane_LV_Clicked(MouseEvent event) {
+		switch (lv2_Counter) {
+
+		case 11:
+			contentPane_SelectPokiFromPokedexLV();
 			break;
 		}
 	}
@@ -230,7 +313,8 @@ public class AdminSettingsController extends RegisterController implements Initi
 		lv1_Counter = 0;
 
 		settingsSpecified_TF.setVisible(false);
-		settingsSpecified_B.setVisible(false);
+		settingsSpecified_B1.setVisible(false);
+		settingsSpecified_B2.setVisible(false);
 		settingsSpecified_LV.setPrefHeight(340);
 		settingsSpecified_OL.clear();
 		settingsSpecified_LV.getItems().clear();
@@ -239,9 +323,11 @@ public class AdminSettingsController extends RegisterController implements Initi
 	}
 
 	private void showUserList() throws SQLException {
+		lv1_Counter = 1;
 
 		settingsSpecified_TF.setVisible(true);
-		settingsSpecified_B.setVisible(true);
+		settingsSpecified_B1.setVisible(true);
+		settingsSpecified_B2.setVisible(false);
 		settingsSpecified_LV.setPrefHeight(300);
 		settingsSpecified_OL.clear();
 		settingsSpecified_LV.getItems().clear();
@@ -254,9 +340,11 @@ public class AdminSettingsController extends RegisterController implements Initi
 	}
 
 	private void showPokedex() throws SQLException {
+		lv1_Counter = 2;
 
 		settingsSpecified_TF.setVisible(true);
-		settingsSpecified_B.setVisible(true);
+		settingsSpecified_B1.setVisible(true);
+		settingsSpecified_B2.setVisible(false);
 		settingsSpecified_LV.setPrefHeight(300);
 		settingsSpecified_OL.clear();
 		settingsSpecified_LV.getItems().clear();
@@ -269,9 +357,11 @@ public class AdminSettingsController extends RegisterController implements Initi
 	}
 
 	private void showPokiList() throws SQLException {
+		lv1_Counter = 3;
 
-		settingsSpecified_TF.setVisible(true);
-		settingsSpecified_B.setVisible(true);
+		settingsSpecified_TF.setVisible(false);
+		settingsSpecified_B1.setVisible(false);
+		settingsSpecified_B2.setVisible(true);
 		settingsSpecified_LV.setPrefHeight(300);
 		settingsSpecified_OL.clear();
 		settingsSpecified_LV.getItems().clear();
@@ -292,12 +382,15 @@ public class AdminSettingsController extends RegisterController implements Initi
 		contentPane_B5.setVisible(false);
 		contentPane_B6.setVisible(false);
 		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
 		contentPane_TF1.setVisible(false);
 		contentPane_TF2.setVisible(true);
 		contentPane_TF3.setVisible(false);
 		contentPane_TF4.setVisible(false);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
 
 		if (settingsSpecified_LV.getSelectionModel().getSelectedItem().equals("Benutzername")) {
 			contentPane_ShowUsernameSettings();
@@ -346,12 +439,15 @@ public class AdminSettingsController extends RegisterController implements Initi
 		contentPane_B5.setVisible(false);
 		contentPane_B6.setVisible(false);
 		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
 		contentPane_TF1.setVisible(false);
 		contentPane_TF2.setVisible(false);
 		contentPane_TF3.setVisible(false);
 		contentPane_TF4.setVisible(false);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
 
 		contentPane_B3.setText("Account löschen");
 
@@ -385,12 +481,15 @@ public class AdminSettingsController extends RegisterController implements Initi
 		contentPane_B5.setVisible(true);
 		contentPane_B6.setVisible(false);
 		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
 		contentPane_TF1.setVisible(false);
 		contentPane_TF2.setVisible(false);
 		contentPane_TF3.setVisible(false);
 		contentPane_TF4.setVisible(true);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
 
 		contentPane_B3.setText("Eintrag löschen");
 		contentPane_B5.setText("Pokedexeintrag");
@@ -438,12 +537,15 @@ public class AdminSettingsController extends RegisterController implements Initi
 		contentPane_B5.setVisible(false);
 		contentPane_B6.setVisible(false);
 		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
 		contentPane_TF1.setVisible(false);
 		contentPane_TF2.setVisible(false);
 		contentPane_TF3.setVisible(false);
 		contentPane_TF4.setVisible(false);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
 
 		contentPane_B1.setText("Zurück");
 		contentPane_L.setText(pokedexPokiTarget.getName() + ":\n\n" + pokedexPokiTarget.getPokedexEntry());
@@ -459,12 +561,15 @@ public class AdminSettingsController extends RegisterController implements Initi
 		contentPane_B5.setVisible(false);
 		contentPane_B6.setVisible(true);
 		contentPane_B7.setVisible(true);
+		contentPane_B8.setVisible(false);
 		contentPane_TF1.setVisible(false);
 		contentPane_TF2.setVisible(false);
 		contentPane_TF3.setVisible(false);
 		contentPane_TF4.setVisible(false);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(true);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
 
 		contentPane_B4.setText("Bestätigen");
 		contentPane_B6.setText("-");
@@ -515,12 +620,15 @@ public class AdminSettingsController extends RegisterController implements Initi
 		contentPane_B5.setVisible(true);
 		contentPane_B6.setVisible(false);
 		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
 		contentPane_TF1.setVisible(true);
 		contentPane_TF2.setVisible(true);
 		contentPane_TF3.setVisible(true);
 		contentPane_TF4.setVisible(false);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
 
 		contentPane_L.setFont(new Font("Artifakt Element", 15));
 		contentPane_L.setText("\tNeuer Nutzer:");
@@ -549,36 +657,186 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 		contentPane_B1.setVisible(false);
 		contentPane_B2.setVisible(false);
-		contentPane_B3.setVisible(false);
+		contentPane_B3.setVisible(true);
 		contentPane_B4.setVisible(false);
-		contentPane_B5.setVisible(false);
-		contentPane_B6.setVisible(false);
-		contentPane_B7.setVisible(false);
-		contentPane_TF1.setVisible(false);
-		contentPane_TF2.setVisible(false);
+		contentPane_B5.setVisible(true);
+		contentPane_B6.setVisible(true);
+		contentPane_B7.setVisible(true);
+		contentPane_B8.setVisible(true);
+		contentPane_TF1.setVisible(true);
+		contentPane_TF2.setVisible(true);
 		contentPane_TF3.setVisible(false);
 		contentPane_TF4.setVisible(false);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
+
+		contentPane_L.setFont(new Font("Artifakt Element", 13));
+		contentPane_L.setText("Neuer Pokedex-Eintrag:\n\n\n\n\n\n\n\nGröße der Entwicklung: " + pokedexEvolutionSize);
+		contentPane_TF1.setPromptText("Name");
+		contentPane_TF1.setText(settingsSpecified_TF.getText().toString());
+		contentPane_TF2.setPromptText("Typ");
+
+		settingsSpecified_TF.clear();
+		contentPane_B3.setText("Bestätigen");
+		contentPane_B5.setText("PokedexText hinzufügen");
+		contentPane_B6.setText("1");
+		contentPane_B7.setText("3");
+		contentPane_B8.setText("2");
 	}
 
-	private void contentPane_AddEntryToPokiList() {
+	private void contentPane_AddEvolution() {
 		lv2_Counter = 9;
 
-		contentPane_B1.setVisible(false);
+		contentPane_B1.setVisible(true);
 		contentPane_B2.setVisible(false);
 		contentPane_B3.setVisible(false);
 		contentPane_B4.setVisible(false);
-		contentPane_B5.setVisible(false);
+		contentPane_B5.setVisible(true);
 		contentPane_B6.setVisible(false);
 		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
 		contentPane_TF1.setVisible(false);
 		contentPane_TF2.setVisible(false);
 		contentPane_TF3.setVisible(false);
 		contentPane_TF4.setVisible(false);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(false);
+		contentPane_TF7.setVisible(true);
+		if (pokedexEvolutionSize > 1)
+			contentPane_TF8.setVisible(true);
+		else
+			contentPane_TF8.setVisible(false);
+		if (pokedexEvolutionSize > 2)
+			contentPane_TF9.setVisible(true);
+		else
+			contentPane_TF9.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
+
+		contentPane_L.setText(null);
+		contentPane_TF7.setPromptText("Basis-Poki");
+		contentPane_TF8.setPromptText("1. Entwicklung");
+		contentPane_TF9.setPromptText("2. Entwicklung");
+
+		contentPane_B1.setText("zurück");
+		contentPane_B5.setText("Bestätigen");
 	}
+
+	private void contentPane_AddPokedexEntry() {
+		lv2_Counter = 10;
+
+		contentPane_B1.setVisible(true);
+		contentPane_B2.setVisible(false);
+		contentPane_B3.setVisible(true);
+		contentPane_B4.setVisible(false);
+		contentPane_B5.setVisible(false);
+		contentPane_B6.setVisible(false);
+		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
+		contentPane_TF1.setVisible(false);
+		contentPane_TF2.setVisible(false);
+		contentPane_TF3.setVisible(false);
+		contentPane_TF4.setVisible(false);
+		contentPane_TF5.setVisible(false);
+		contentPane_TF6.setVisible(false);
+		contentPane_TF7.setVisible(false);
+		contentPane_TF8.setVisible(false);
+		contentPane_TF9.setVisible(false);
+		contentPane_TA1.setVisible(true);
+		contentPane_LV.setVisible(false);
+
+		contentPane_TA1.setPromptText("Hier eintragen..");
+
+		contentPane_B1.setText("zurück");
+		contentPane_B3.setText("Bestätigen");
+	}
+
+	private void contentPane_ChoosePokiFromPokedex() {
+		lv2_Counter = 11;
+
+		contentPane_B1.setVisible(false);
+		contentPane_B2.setVisible(false);
+		contentPane_B3.setVisible(true);
+		contentPane_B4.setVisible(false);
+		contentPane_B5.setVisible(false);
+		contentPane_B6.setVisible(false);
+		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
+		contentPane_TF1.setVisible(false);
+		contentPane_TF2.setVisible(false);
+		contentPane_TF3.setVisible(false);
+		contentPane_TF4.setVisible(false);
+		contentPane_TF5.setVisible(false);
+		contentPane_TF6.setVisible(false);
+		contentPane_TF7.setVisible(false);
+		contentPane_TF8.setVisible(false);
+		contentPane_TF9.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(true);
+
+		contentPane_OL.clear();
+		contentPane_LV.getItems().clear();
+		Database.getPokedex().forEach(pp -> {
+			contentPane_OL.add(pp.getName());
+		});
+		contentPane_LV.getItems().addAll(contentPane_OL);
+
+		contentPane_B3.setText("Bestätigen");
+
+	}
+
+	private void contentPane_SelectPokiFromPokedexLV() {
+
+		String selection = contentPane_LV.getSelectionModel().getSelectedItem();
+
+		lv2_Counter = 12;
+
+		contentPane_B1.setVisible(true);
+		contentPane_B2.setVisible(false);
+		contentPane_B3.setVisible(true);
+		contentPane_B4.setVisible(false);
+		contentPane_B5.setVisible(false);
+		contentPane_B6.setVisible(true);
+		contentPane_B7.setVisible(true);
+		contentPane_B8.setVisible(false);
+		contentPane_TF1.setVisible(false);
+		contentPane_TF2.setVisible(false);
+		contentPane_TF3.setVisible(false);
+		contentPane_TF4.setVisible(false);
+		contentPane_TF5.setVisible(false);
+		contentPane_TF6.setVisible(true);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
+
+		contentPane_B1.setText("zurück");
+		contentPane_B3.setText("Bestätigen");
+		contentPane_B6.setText("-");
+		contentPane_B7.setText("+");
+
+		boolean foundPoki = false;
+		for (int i = 0; i < Database.getPokedex().size() & !foundPoki; i++) {
+			if (Database.getPokedex().get(i).getName().equals(selection)) {
+
+				pokedexPokiTarget = Database.getPokedex().get(i);
+
+				pokiTarget = new Poki();
+				pokiTarget.setName(pokedexPokiTarget.getName());
+				pokiTarget.setTyp(pokedexPokiTarget.getTyp());
+				pokiTarget.setAnzahl(0);
+
+				contentPane_L.setText("Name:\n\t" + pokiTarget.getName() + "\nTyp:\n\t" + pokiTarget.getTyp()
+						+ "\n\nAnzahl:\t" + pokiTarget.getAnzahl() + "\n\n");
+				contentPane_TF6.setText(String.valueOf(pokiTarget.getAnzahl()));
+
+				foundPoki = true;
+			}
+		}
+
+	}
+
+	// BEGIN OF DATABASE-METHODS //
 
 	private void database_UpdateUsername() throws SQLException {
 
@@ -587,6 +845,7 @@ public class AdminSettingsController extends RegisterController implements Initi
 					+ "'  WHERE id = " + u.getId() + ";");
 			Database.initData("usertable");
 			initialize(null, null);
+			contentPane_ShowUsernameSettings();
 		} else {
 			System.err.println("Benutzername ist bereits in Verwendung.");
 		}
@@ -599,6 +858,7 @@ public class AdminSettingsController extends RegisterController implements Initi
 					+ "'  WHERE id = " + u.getId() + ";");
 			Database.initData("usertable");
 			initialize(null, null);
+			contentPane_ShowEmailSettings();
 		} else {
 			System.err.println("Email ist nicht gültig oder bereits in Verwendung.");
 		}
@@ -612,6 +872,7 @@ public class AdminSettingsController extends RegisterController implements Initi
 					+ "'  WHERE id = " + u.getId() + ";");
 			Database.initData("usertable");
 			initialize(null, null);
+			contentPane_ShowPasswordSettings();
 		} else {
 			System.err.println(
 					"Altes Passwort ist nicht korrekt oder\nneues Passwort entspricht nicht den Anforderungen.");
@@ -622,12 +883,20 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 		Database.sendSqlCommand("DELETE FROM usertable WHERE id = " + userTarget.getId() + ";");
 		initialize(null, null);
+		showUserList();
+	}
+
+	private void database_DeletePokedexPokiTarget() throws SQLException {
+		Database.sendSqlCommand("DELETE FROM pokedex WHERE id = " + pokedexPokiTarget.getId() + ";");
+		initialize(null, null);
+		showPokedex();
 	}
 
 	private void database_UpdateUserTargetToAdmin() throws SQLException {
 
 		Database.sendSqlCommand("UPDATE usertable SET admin = 1 WHERE id = " + userTarget.getId() + ";");
 		initialize(null, null);
+		contentPane_ShowUserTargetSettings();
 	}
 
 	private void database_UpdatePokiTargetAnzahl() throws NumberFormatException, SQLException {
@@ -635,6 +904,7 @@ public class AdminSettingsController extends RegisterController implements Initi
 		Database.sendSqlCommand("UPDATE pokitable SET anzahl = " + Integer.parseInt(contentPane_TF6.getText())
 				+ " WHERE id = " + pokiTarget.getId() + ";");
 		initialize(null, null);
+		contentPane_ShowPokiTargetSettings();
 	}
 
 	private void database_InsertNewUser() throws SQLException {
@@ -655,6 +925,43 @@ public class AdminSettingsController extends RegisterController implements Initi
 					+ "', '" + password + "', '" + email + "', NULL, " + admin + ");");
 	}
 
+	private void database_InsertNewPokedexEntry() throws SQLException {
+
+		String name = contentPane_TF1.getText().toString();
+		String typ = contentPane_TF2.getText().toString();
+		String firstEvo = contentPane_TF1.getText().toString();
+		String secondEvo = "NULL";
+		String thirdEvo = "NULL";
+		String pokedexEntry = "coming soon...";
+
+		if (pokedexEvolutionSize != 1) {
+
+			firstEvo = contentPane_TF7.getText().toString();
+			secondEvo = contentPane_TF8.getText().toString();
+			thirdEvo = contentPane_TF9.getText().toString();
+			contentPane_AddEntryToPokedex();
+		}
+		if (pokedexEntryWasMade)
+			pokedexEntry = contentPane_TA1.getText().toString();
+
+		Database.sendSqlCommand(
+				"INSERT INTO pokedex (name, typ, firstEvo, secondEvo, thirdEvo, pokedexEntry, id) VALUES ('" + name
+						+ "', '" + typ + "', '" + firstEvo + "', '" + secondEvo + "', '" + thirdEvo + "', '"
+						+ pokedexEntry + "', NULL);");
+		initialize(null, null);
+	}
+
+	private void database_InsertNewPoki() throws SQLException {
+
+		String name = pokiTarget.getName();
+		String typ = pokiTarget.getTyp();
+		int anzahl = pokiTarget.getAnzahl();
+
+		Database.sendSqlCommand("INSERT INTO pokitable (name, typ, id, anzahl) VALUES ('" + name + "', '" + typ
+				+ "', NULL, " + anzahl + ");");
+		initialize(null, null);
+	}
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
@@ -671,10 +978,12 @@ public class AdminSettingsController extends RegisterController implements Initi
 		settings_LV.getItems().clear();
 		settings_LV.getItems().addAll(settings_OL);
 
-		contentPane_L.setWrapText(true);
+		contentPane_LV.getItems().clear();
+		contentPane_LV.getItems().addAll(contentPane_OL);
 
 		settingsSpecified_TF.setVisible(false);
-		settingsSpecified_B.setVisible(false);
+		settingsSpecified_B1.setVisible(false);
+		settingsSpecified_B2.setVisible(false);
 
 		contentPane_B1.setVisible(false);
 		contentPane_B2.setVisible(false);
@@ -683,14 +992,22 @@ public class AdminSettingsController extends RegisterController implements Initi
 		contentPane_B5.setVisible(false);
 		contentPane_B6.setVisible(false);
 		contentPane_B7.setVisible(false);
+		contentPane_B8.setVisible(false);
 		contentPane_TF1.setVisible(false);
 		contentPane_TF2.setVisible(false);
 		contentPane_TF3.setVisible(false);
 		contentPane_TF4.setVisible(false);
 		contentPane_TF5.setVisible(false);
 		contentPane_TF6.setVisible(false);
+		contentPane_TF7.setVisible(false);
+		contentPane_TF8.setVisible(false);
+		contentPane_TF9.setVisible(false);
+		contentPane_TA1.setVisible(false);
+		contentPane_LV.setVisible(false);
 
 		contentPane_L.setText(null);
 		contentPane_L.setFont(new Font("Artifakt Element", 12));
+
+		// END OF DATABASE-METHODS //
 	}
 }
