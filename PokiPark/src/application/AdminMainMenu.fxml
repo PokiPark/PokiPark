@@ -14,16 +14,12 @@
          <center>
             <AnchorPane prefHeight="157.0" prefWidth="600.0" style="-fx-background-color: #fff04c;" BorderPane.alignment="CENTER">
                <children>
-<<<<<<< HEAD
                   <ImageView fitHeight="500.0" fitWidth="623.0" layoutY="-52.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/Background.png" />
                      </image>
                   </ImageView>
                   <Button layoutX="386.0" layoutY="80.0" mnemonicParsing="false" onAction="#zonesClicked" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: lightGreen;" text="Zones">
-=======
-                  <Button layoutX="386.0" layoutY="32.0" mnemonicParsing="false" onAction="#zones_B_Action" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: lightGreen;" text="Zones">
->>>>>>> branch 'master' of https://github.com/PokiPark/PokiPark.git
                      <font>
                         <Font name="ArtifaktElement-Regular" size="48.0" />
                      </font>
@@ -34,16 +30,12 @@
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #814288;" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="username_L" alignment="TOP_RIGHT" layoutX="326.0" layoutY="18.0" prefHeight="50.0" prefWidth="192.0" textFill="#fffef0">
+                  <Label fx:id="usernameLabel" alignment="TOP_RIGHT" layoutX="326.0" layoutY="18.0" prefHeight="50.0" prefWidth="192.0" textFill="#fffef0">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="18.0" />
                      </font>
                   </Label>
-<<<<<<< HEAD
                   <Button layoutX="4.0" layoutY="4.0" mnemonicParsing="false" onAction="#pokedexClicked" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #814288;">
-=======
-                  <Button layoutX="4.0" layoutY="4.0" mnemonicParsing="false" onAction="#pokedex_B_Action" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: darkviolet;">
->>>>>>> branch 'master' of https://github.com/PokiPark/PokiPark.git
                      <font>
                         <Font name="ArtifaktElement-Regular" size="14.0" />
                      </font>
@@ -55,14 +47,14 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label fx:id="avatar_L" layoutX="527.0" layoutY="12.0" prefHeight="60.0" prefWidth="60.0" />
+                  <Label fx:id="avatar" layoutX="527.0" layoutY="12.0" prefHeight="60.0" prefWidth="60.0" />
                </children>
             </AnchorPane>
          </top>
          <bottom>
             <AnchorPane prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: orange;" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="527.0" layoutY="10.0" mnemonicParsing="false" onAction="#logout_B_Action" style="-fx-background-color: white; -fx-border-color: #ffe14b; -fx-border-radius: 8; -fx-background-radius: 8;" text="Logout" textFill="#814288">
+                  <Button layoutX="527.0" layoutY="10.0" mnemonicParsing="false" onAction="#logoutClicked" style="-fx-background-color: white; -fx-border-color: #ffe14b; -fx-border-radius: 8; -fx-background-radius: 8;" text="Logout" textFill="#814288">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="12.0" />
                      </font>
