@@ -5,6 +5,8 @@ import java.net.*;
 import java.sql.*;
 import java.util.*;
 
+import POJO.*;
+
 import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -14,7 +16,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 
 public class ZonesController implements Initializable {
-
+	
 	@FXML
 	private AnchorPane rootPane, contentPane;
 
@@ -27,11 +29,13 @@ public class ZonesController implements Initializable {
 	@FXML
 	private ImageView main_IV, water_IV, weed_IV, desert_IV, mountain_IV;
 
+	private ArrayList<Poki> pokilist = new ArrayList<Poki>();
+
 	private ObservableList<String> ol = FXCollections.observableArrayList("See", "Wiese / Wald", "Wüste", "Gebirge");
 
 	private int pokiCount = 0;
 
-	private ArrayList<Button> poki_BL = new ArrayList<Button>();;
+	private ArrayList<ImageView> poki_BL = new ArrayList<ImageView>();;
 
 	// START OF FXML-METHODS //
 
@@ -43,35 +47,43 @@ public class ZonesController implements Initializable {
 		if (select.equals("See")) {
 
 			main_IV.setImage(new Image("Wasser.png"));
+			main_IV.setLayoutX(0);
+			main_IV.setLayoutY(0);
 
 			disableZoneButtons();
 			map_B.setVisible(true);
 
-			loadPokis();
+			loadPokis(0);
 		} else if (select.equals("Wiese / Wald")) {
 
 			main_IV.setImage(new Image("Weed.png"));
+			main_IV.setLayoutX(0);
+			main_IV.setLayoutY(0);
 
 			disableZoneButtons();
 			map_B.setVisible(true);
 
-			loadPokis();
+			loadPokis(1);
 		} else if (select.equals("Wüste")) {
 
 			main_IV.setImage(new Image("Wüste.png"));
+			main_IV.setLayoutX(0);
+			main_IV.setLayoutY(0);
 
 			disableZoneButtons();
 			map_B.setVisible(true);
 
-			loadPokis();
+			loadPokis(2);
 		} else if (select.equals("Gebirge")) {
 
 			main_IV.setImage(new Image("Stein mit Schnee.png.png"));
+			main_IV.setLayoutX(0);
+			main_IV.setLayoutY(0);
 
 			disableZoneButtons();
 			map_B.setVisible(true);
 
-			loadPokis();
+			loadPokis(3);
 		}
 	}
 
@@ -83,7 +95,7 @@ public class ZonesController implements Initializable {
 		disableZoneButtons();
 		map_B.setVisible(true);
 
-		loadPokis();
+		loadPokis(0);
 	}
 
 	@FXML
@@ -94,7 +106,7 @@ public class ZonesController implements Initializable {
 		disableZoneButtons();
 		map_B.setVisible(true);
 
-		loadPokis();
+		loadPokis(1);
 	}
 
 	@FXML
@@ -105,7 +117,7 @@ public class ZonesController implements Initializable {
 		disableZoneButtons();
 		map_B.setVisible(true);
 
-		loadPokis();
+		loadPokis(2);
 	}
 
 	@FXML
@@ -116,7 +128,7 @@ public class ZonesController implements Initializable {
 		disableZoneButtons();
 		map_B.setVisible(true);
 
-		loadPokis();
+		loadPokis(3);
 	}
 
 	@FXML
@@ -155,57 +167,102 @@ public class ZonesController implements Initializable {
 		mountain_B.setVisible(false);
 	}
 
-	private void loadPokis() {
+	private void loadPokis(int zone) {
 
 		for (int i = 0; i < pokiCount; i++) {
 			contentPane.getChildren().remove(poki_BL.get(i));
 		}
-		pokiCount = 0;
+		pokilist.clear();
 		poki_BL.clear();
 
-		Database.getPokilist().forEach(p -> {
-			pokiCount = pokiCount + p.getAnzahl();
-		});
+		switch (zone) {
 
-		for (int i = 0; i < pokiCount; i++) {
-			poki_BL.add(new Button());
-			poki_BL.get(i).setPrefSize(50, 50);
-			poki_BL.get(i).setLayoutX(5 + Math.random() * 440);
-			poki_BL.get(i).setLayoutY(5 + Math.random() * 365);
+		case 0:
+			Database.getPokilist().forEach(p -> {
+				pokiCount = 0;
+				for (int i = 0; i < pokilist.size(); i++) {
+					if (pokilist.get(i).getName().equals(p.getName())) {
+						pokiCount++;
+					}
+				}
+				if ((p.getTyp().contains("Wasser") | p.getTyp().contains("Flug")) & pokiCount <= p.getAnzahl()) {
+					for (int i = 0; i < p.getAnzahl(); i++)
+						pokilist.add(p);
+				}
+			});
+			break;
+
+		case 1:
+			Database.getPokilist().forEach(p -> {
+				pokiCount = 0;
+				for (int i = 0; i < pokilist.size(); i++) {
+					if (pokilist.get(i).getName().equals(p.getName())) {
+						pokiCount++;
+					}
+				}
+				if ((p.getTyp().contains("Pflanze") | p.getTyp().contains("Normal") | p.getTyp().contains("Käfer")
+						| p.getTyp().contains("Gift") | p.getTyp().contains("Psycho") | p.getTyp().contains("Geist")
+						| p.getTyp().contains("Unlicht") | p.getTyp().contains("Fee")) & pokiCount <= p.getAnzahl()) {
+					for (int i = 0; i < p.getAnzahl(); i++)
+						pokilist.add(p);
+				}
+			});
+			break;
+
+		case 2:
+			Database.getPokilist().forEach(p -> {
+				pokiCount = 0;
+				for (int i = 0; i < pokilist.size(); i++) {
+					if (pokilist.get(i).getName().equals(p.getName())) {
+						pokiCount++;
+					}
+				}
+				if ((p.getTyp().contains("Normal") | p.getTyp().contains("Feuer") | p.getTyp().contains("Gestein")
+						| p.getTyp().contains("Boden") | p.getTyp().contains("Kampf") | p.getTyp().contains("Stahl"))
+						& pokiCount <= p.getAnzahl()) {
+					for (int i = 0; i < p.getAnzahl(); i++)
+						pokilist.add(p);
+				}
+			});
+			break;
+
+		case 3:
+			Database.getPokilist().forEach(p -> {
+				pokiCount = 0;
+				for (int i = 0; i < pokilist.size(); i++) {
+					if (pokilist.get(i).getName().equals(p.getName())) {
+						pokiCount++;
+					}
+				}
+				if ((p.getTyp().contains("Feuer") | p.getTyp().contains("Elektro") | p.getTyp().contains("Flug")
+						| p.getTyp().contains("Gestein") | p.getTyp().contains("Boden") | p.getTyp().contains("Kampf")
+						| p.getTyp().contains("Eis") | p.getTyp().contains("Psycho") | p.getTyp().contains("Drache")
+						| p.getTyp().contains("Stahl") | p.getTyp().contains("Fee")) & pokiCount <= p.getAnzahl()) {
+					for (int i = 0; i < p.getAnzahl(); i++)
+						pokilist.add(p);
+				}
+			});
+			break;
+		}
+
+		for (int i = 0; i < pokilist.size(); i++) {
+			poki_BL.add(new ImageView());
+			poki_BL.get(i).setFitHeight(50);
+			poki_BL.get(i).setFitWidth(50);
+
+			poki_BL.get(i).setLayoutX(30 + Math.random() * 370);
+			poki_BL.get(i).setLayoutY(30 + Math.random() * 270);
+
+			poki_BL.get(i).setImage(new Image(pokilist.get(i).getName() + "M.png"));
+
 			poki_BL.get(i).setVisible(true);
 			contentPane.getChildren().add(poki_BL.get(i));
 		}
-
-		int temp = 0;
-		int a = 0;
-
-		for (int i = 0; i < Database.getPokilist().size(); i++) {
-
-			for (int j = 0; j < Database.getPokilist().get(i).getAnzahl(); j++) {
-
-				if (j >= temp) {
-					temp = j;
-					ImageView poke_IV = new ImageView(new Image(Database.getPokilist().get(i).getName() + "M.png"));
-					poke_IV.setFitHeight(50);
-					poke_IV.setFitWidth(50);
-					poki_BL.get(j + a).setGraphic(poke_IV);
-				} else {
-					a = temp + 1;
-					temp = j;
-					ImageView poke_IV = new ImageView(new Image(Database.getPokilist().get(i).getName() + "M.png"));
-					poke_IV.setFitHeight(50);
-					poke_IV.setFitWidth(50);
-					poki_BL.get(j + a).setGraphic(poke_IV);
-				}
-
-			}
-		}
-
 	}
 
 	private void hidePokis() {
 
-		for (int i = 0; i < pokiCount; i++) {
+		for (int i = 0; i < pokilist.size(); i++) {
 			contentPane.getChildren().remove(poki_BL.get(i));
 		}
 	}

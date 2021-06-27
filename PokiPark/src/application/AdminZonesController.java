@@ -5,6 +5,8 @@ import java.net.*;
 import java.sql.*;
 import java.util.*;
 
+import POJO.*;
+
 import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -26,6 +28,8 @@ public class AdminZonesController implements Initializable {
 
 	@FXML
 	private ImageView main_IV, water_IV, weed_IV, desert_IV, mountain_IV;
+
+	private ArrayList<Poki> pokilist = new ArrayList<Poki>();
 
 	private ObservableList<String> ol = FXCollections.observableArrayList("See", "Wiese / Wald", "Wüste", "Gebirge");
 
@@ -49,7 +53,7 @@ public class AdminZonesController implements Initializable {
 			disableZoneButtons();
 			map_B.setVisible(true);
 
-			loadPokis();
+			loadPokis(0);
 		} else if (select.equals("Wiese / Wald")) {
 
 			main_IV.setImage(new Image("Weed.png"));
@@ -59,7 +63,7 @@ public class AdminZonesController implements Initializable {
 			disableZoneButtons();
 			map_B.setVisible(true);
 
-			loadPokis();
+			loadPokis(1);
 		} else if (select.equals("Wüste")) {
 
 			main_IV.setImage(new Image("Wüste.png"));
@@ -69,7 +73,7 @@ public class AdminZonesController implements Initializable {
 			disableZoneButtons();
 			map_B.setVisible(true);
 
-			loadPokis();
+			loadPokis(2);
 		} else if (select.equals("Gebirge")) {
 
 			main_IV.setImage(new Image("Stein mit Schnee.png.png"));
@@ -79,7 +83,7 @@ public class AdminZonesController implements Initializable {
 			disableZoneButtons();
 			map_B.setVisible(true);
 
-			loadPokis();
+			loadPokis(3);
 		}
 	}
 
@@ -91,7 +95,7 @@ public class AdminZonesController implements Initializable {
 		disableZoneButtons();
 		map_B.setVisible(true);
 
-		loadPokis();
+		loadPokis(0);
 	}
 
 	@FXML
@@ -102,7 +106,7 @@ public class AdminZonesController implements Initializable {
 		disableZoneButtons();
 		map_B.setVisible(true);
 
-		loadPokis();
+		loadPokis(1);
 	}
 
 	@FXML
@@ -113,7 +117,7 @@ public class AdminZonesController implements Initializable {
 		disableZoneButtons();
 		map_B.setVisible(true);
 
-		loadPokis();
+		loadPokis(2);
 	}
 
 	@FXML
@@ -124,7 +128,7 @@ public class AdminZonesController implements Initializable {
 		disableZoneButtons();
 		map_B.setVisible(true);
 
-		loadPokis();
+		loadPokis(3);
 	}
 
 	@FXML
@@ -163,50 +167,102 @@ public class AdminZonesController implements Initializable {
 		mountain_B.setVisible(false);
 	}
 
-	private void loadPokis() {
+	private void loadPokis(int zone) {
 
 		for (int i = 0; i < pokiCount; i++) {
 			contentPane.getChildren().remove(poki_BL.get(i));
 		}
-		pokiCount = 0;
+		pokilist.clear();
 		poki_BL.clear();
 
-		Database.getPokilist().forEach(p -> {
-			pokiCount = pokiCount + p.getAnzahl();
-		});
+		switch (zone) {
 
-		for (int i = 0; i < pokiCount; i++) {
+		case 0:
+			Database.getPokilist().forEach(p -> {
+				pokiCount = 0;
+				for (int i = 0; i < pokilist.size(); i++) {
+					if (pokilist.get(i).getName().equals(p.getName())) {
+						pokiCount++;
+					}
+				}
+				if ((p.getTyp().contains("Wasser") | p.getTyp().contains("Flug")) & pokiCount <= p.getAnzahl()) {
+					for (int i = 0; i < p.getAnzahl(); i++)
+						pokilist.add(p);
+				}
+			});
+			break;
+
+		case 1:
+			Database.getPokilist().forEach(p -> {
+				pokiCount = 0;
+				for (int i = 0; i < pokilist.size(); i++) {
+					if (pokilist.get(i).getName().equals(p.getName())) {
+						pokiCount++;
+					}
+				}
+				if ((p.getTyp().contains("Pflanze") | p.getTyp().contains("Normal") | p.getTyp().contains("Käfer")
+						| p.getTyp().contains("Gift") | p.getTyp().contains("Psycho") | p.getTyp().contains("Geist")
+						| p.getTyp().contains("Unlicht") | p.getTyp().contains("Fee")) & pokiCount <= p.getAnzahl()) {
+					for (int i = 0; i < p.getAnzahl(); i++)
+						pokilist.add(p);
+				}
+			});
+			break;
+
+		case 2:
+			Database.getPokilist().forEach(p -> {
+				pokiCount = 0;
+				for (int i = 0; i < pokilist.size(); i++) {
+					if (pokilist.get(i).getName().equals(p.getName())) {
+						pokiCount++;
+					}
+				}
+				if ((p.getTyp().contains("Normal") | p.getTyp().contains("Feuer") | p.getTyp().contains("Gestein")
+						| p.getTyp().contains("Boden") | p.getTyp().contains("Kampf") | p.getTyp().contains("Stahl"))
+						& pokiCount <= p.getAnzahl()) {
+					for (int i = 0; i < p.getAnzahl(); i++)
+						pokilist.add(p);
+				}
+			});
+			break;
+
+		case 3:
+			Database.getPokilist().forEach(p -> {
+				pokiCount = 0;
+				for (int i = 0; i < pokilist.size(); i++) {
+					if (pokilist.get(i).getName().equals(p.getName())) {
+						pokiCount++;
+					}
+				}
+				if ((p.getTyp().contains("Feuer") | p.getTyp().contains("Elektro") | p.getTyp().contains("Flug")
+						| p.getTyp().contains("Gestein") | p.getTyp().contains("Boden") | p.getTyp().contains("Kampf")
+						| p.getTyp().contains("Eis") | p.getTyp().contains("Psycho") | p.getTyp().contains("Drache")
+						| p.getTyp().contains("Stahl") | p.getTyp().contains("Fee")) & pokiCount <= p.getAnzahl()) {
+					for (int i = 0; i < p.getAnzahl(); i++)
+						pokilist.add(p);
+				}
+			});
+			break;
+		}
+
+		for (int i = 0; i < pokilist.size(); i++) {
 			poki_BL.add(new ImageView());
 			poki_BL.get(i).setFitHeight(50);
 			poki_BL.get(i).setFitWidth(50);
 
 			poki_BL.get(i).setLayoutX(30 + Math.random() * 370);
 			poki_BL.get(i).setLayoutY(30 + Math.random() * 270);
+
+			poki_BL.get(i).setImage(new Image(pokilist.get(i).getName() + "M.png"));
+
 			poki_BL.get(i).setVisible(true);
 			contentPane.getChildren().add(poki_BL.get(i));
-		}
-
-		int temp = 0;
-		int a = 0;
-
-		for (int i = 0; i < Database.getPokilist().size(); i++) {
-
-			for (int j = 0; j < Database.getPokilist().get(i).getAnzahl(); j++) {
-
-				if (j == 0 && i != 0)
-					a = temp + 1;
-				temp = j + a;
-
-				poki_BL.get(j + a).setImage(new Image(Database.getPokilist().get(i).getName() + "M.png"));
-				System.out.println(
-						Database.getPokilist().get(i).getName() + "M.png	i: " + i + " j: " + j + " j+a: " + (j + a));
-			}
 		}
 	}
 
 	private void hidePokis() {
 
-		for (int i = 0; i < pokiCount; i++) {
+		for (int i = 0; i < pokilist.size(); i++) {
 			contentPane.getChildren().remove(poki_BL.get(i));
 		}
 	}

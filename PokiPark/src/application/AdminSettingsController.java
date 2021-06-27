@@ -312,6 +312,8 @@ public class AdminSettingsController extends RegisterController implements Initi
 	private void showAccountSettings() {
 		lv1_Counter = 0;
 
+		initialize(null, null);
+
 		settingsSpecified_TF.setVisible(false);
 		settingsSpecified_B1.setVisible(false);
 		settingsSpecified_B2.setVisible(false);
@@ -324,6 +326,8 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 	private void showUserList() throws SQLException {
 		lv1_Counter = 1;
+
+		initialize(null, null);
 
 		settingsSpecified_TF.setVisible(true);
 		settingsSpecified_B1.setVisible(true);
@@ -342,6 +346,8 @@ public class AdminSettingsController extends RegisterController implements Initi
 	private void showPokedex() throws SQLException {
 		lv1_Counter = 2;
 
+		initialize(null, null);
+
 		settingsSpecified_TF.setVisible(true);
 		settingsSpecified_B1.setVisible(true);
 		settingsSpecified_B2.setVisible(false);
@@ -359,6 +365,8 @@ public class AdminSettingsController extends RegisterController implements Initi
 	private void showPokiList() throws SQLException {
 		lv1_Counter = 3;
 
+		initialize(null, null);
+
 		settingsSpecified_TF.setVisible(false);
 		settingsSpecified_B1.setVisible(false);
 		settingsSpecified_B2.setVisible(true);
@@ -370,6 +378,7 @@ public class AdminSettingsController extends RegisterController implements Initi
 			settingsSpecified_OL.add(p.getName());
 		});
 
+		// settingsSpecified_OL = heapSort(settingsSpecified_OL);
 		settingsSpecified_LV.getItems().addAll(settingsSpecified_OL);
 	}
 
@@ -901,10 +910,13 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 	private void database_UpdatePokiTargetAnzahl() throws NumberFormatException, SQLException {
 
-		Database.sendSqlCommand("UPDATE pokitable SET anzahl = " + Integer.parseInt(contentPane_TF6.getText())
-				+ " WHERE id = " + pokiTarget.getId() + ";");
+		if (Integer.parseInt(contentPane_TF6.getText()) == 0) {
+			Database.sendSqlCommand("DELETE FROM pokitable WHERE id = " + pokiTarget.getId() + ";");
+		} else {
+			Database.sendSqlCommand("UPDATE pokitable SET anzahl = " + Integer.parseInt(contentPane_TF6.getText())
+					+ " WHERE id = " + pokiTarget.getId() + ";");
+		}
 		initialize(null, null);
-		contentPane_ShowPokiTargetSettings();
 	}
 
 	private void database_InsertNewUser() throws SQLException {
@@ -959,9 +971,42 @@ public class AdminSettingsController extends RegisterController implements Initi
 
 		Database.sendSqlCommand("INSERT INTO pokitable (name, typ, id, anzahl) VALUES ('" + name + "', '" + typ
 				+ "', NULL, " + anzahl + ");");
+		showPokiList();
 		initialize(null, null);
 	}
 
+	/*
+	 * public ObservableList<String> heapSort(ObservableList<String> ol) {
+	 * 
+	 * 
+	 * int size = ol.size();
+	 * 
+	 * for (int i = size / 2 - 1; i > 0; i--) { ol = heapify(ol, size, i);
+	 * System.out.println(ol); }
+	 * 
+	 * for (int i = size - 1; i > 0; i--) { String temp = ol.get(0); ol.set(0,
+	 * ol.get(i)); ol.set(i, temp);
+	 * 
+	 * ol = heapify(ol, 0, i); System.out.println(ol); }
+	 * 
+	 * return ol; }
+	 * 
+	 * private ObservableList<String> heapify(ObservableList<String> ol, int size,
+	 * int i) {
+	 * 
+	 * int max = i; int left = 2 * i + 1; int right = 2 * i + 2;
+	 * 
+	 * if (left < size && (int) ol.get(left).charAt(0) > (int)
+	 * ol.get(max).charAt(0)) max = left;
+	 * 
+	 * if (right < size && (int) ol.get(right).charAt(0) > (int)
+	 * ol.get(max).charAt(0)) max = right;
+	 * 
+	 * if (max != i) { String swap = ol.get(i); ol.set(i, ol.get(max)); ol.set(max,
+	 * swap);
+	 * 
+	 * ol = heapify(ol, size, max); } return ol; }
+	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 

@@ -33,9 +33,9 @@
             <AnchorPane prefHeight="75.0" prefWidth="600.0" style="-fx-background-color: lightGray;" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <AnchorPane fx:id="contentPane" prefHeight="386.0" prefWidth="451.0" style="-fx-background-color: lightGreen;" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="contentPane" prefHeight="375.0" prefWidth="450.0" style="-fx-background-color: lightGreen;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="main_IV" fitHeight="375.0" fitWidth="451.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="main_IV" fitHeight="375.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/PokiMap.png" />
                      </image>
