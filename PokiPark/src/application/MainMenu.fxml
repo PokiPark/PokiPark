@@ -14,7 +14,12 @@
          <center>
             <AnchorPane prefHeight="157.0" prefWidth="600.0" style="-fx-background-color: #fff04c;" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="386.0" layoutY="32.0" mnemonicParsing="false" onAction="#zonesClicked" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: lightGreen;" text="Zones">
+                  <ImageView fitHeight="500.0" fitWidth="610.0" layoutY="-102.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/Background.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="386.0" layoutY="55.0" mnemonicParsing="false" onAction="#zonesClicked" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: lightGreen;" text="Zones">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="48.0" />
                      </font>
