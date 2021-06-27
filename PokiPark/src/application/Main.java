@@ -19,6 +19,7 @@ public class Main extends Application {
 			primaryStage.setTitle("PokiPark | Login");
 			primaryStage.getIcons().add(new Image("PokiPark_Logo.png"));
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
