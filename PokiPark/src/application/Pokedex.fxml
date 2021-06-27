@@ -58,7 +58,7 @@
                         <Image url="@../../img/pokedexBG.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="pokeInfo_L" layoutX="261.0" layoutY="14.0" prefHeight="175.0" prefWidth="175.0" style="-fx-background-color: transparent;" textFill="WHITE">
+                  <Label fx:id="pokeInfo_L" layoutX="281.0" layoutY="14.0" prefHeight="175.0" prefWidth="155.0" style="-fx-background-color: transparent;" textFill="WHITE">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="16.0" />
                      </font>
