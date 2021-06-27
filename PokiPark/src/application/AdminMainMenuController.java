@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import javafx.application.Platform;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -77,7 +78,7 @@ public class AdminMainMenuController implements Initializable {
 		quit_MI.setOnAction(new EventHandler<ActionEvent>( ) {
 			@Override
 			public void handle(ActionEvent event) {
-				
+				Platform.exit();
 			}
 		});
 		

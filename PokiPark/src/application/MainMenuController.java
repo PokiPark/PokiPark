@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import javafx.application.Platform;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -20,7 +21,6 @@ public class MainMenuController implements Initializable {
 	private Label usernameLabel;
 	
 	private ContextMenu cm = new ContextMenu();
-	//private MenuItem statistics_MI = new MenuItem("Statistik");
 	private MenuItem settings_MI = new MenuItem("Einstellungen");
 	private MenuItem logout_MI = new MenuItem("Ausloggen");
 	private MenuItem quit_MI = new MenuItem("Verlassen");
@@ -50,17 +50,6 @@ public class MainMenuController implements Initializable {
 		usernameLabel.setText(Database.activeUser.getUsername());
 		usernameLabel.setWrapText(true);
 		
-		/*statistics_MI.setOnAction(new EventHandler<ActionEvent>( ) {
-			@Override
-			public void handle(ActionEvent event) {
-				try {
-					AnchorPane pane = FXMLLoader.load(getClass().getResource("Statistics.fxml"));
-					rootPane.getChildren().setAll(pane);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});*/
 		settings_MI.setOnAction(new EventHandler<ActionEvent>( ) {
 			@Override
 			public void handle(ActionEvent event) {
@@ -86,11 +75,11 @@ public class MainMenuController implements Initializable {
 		quit_MI.setOnAction(new EventHandler<ActionEvent>( ) {
 			@Override
 			public void handle(ActionEvent event) {
-				
+				Platform.exit();
 			}
 		});
 		
-		cm.getItems().addAll(/*statistics_MI, */settings_MI, logout_MI, quit_MI);
+		cm.getItems().addAll(settings_MI, logout_MI, quit_MI);
 		avatar.setContextMenu(cm);
 		ImageView iv = new ImageView(new Image("Avatar.png"));
 		iv.setFitHeight(60);
