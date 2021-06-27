@@ -76,7 +76,7 @@ public class ZonesController implements Initializable {
 			loadPokis(2);
 		} else if (select.equals("Gebirge")) {
 
-			main_IV.setImage(new Image("Stein mit Schnee.png.png"));
+			main_IV.setImage(new Image("Stein mit Schnee.png"));
 			main_IV.setLayoutX(0);
 			main_IV.setLayoutY(0);
 
@@ -169,7 +169,7 @@ public class ZonesController implements Initializable {
 
 	private void loadPokis(int zone) {
 
-		for (int i = 0; i < pokiCount; i++) {
+		for (int i = 0; i < pokilist.size(); i++) {
 			contentPane.getChildren().remove(poki_IVL.get(i));
 		}
 		pokilist.clear();
