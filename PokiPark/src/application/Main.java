@@ -16,7 +16,7 @@ public class Main extends Application {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Login.fxml"));
 			scene = new Scene(root, 600, 500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setTitle("PokiPark | Login");
+			primaryStage.setTitle("PokiPark");
 			primaryStage.getIcons().add(new Image("PokiPark_Logo.png"));
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
