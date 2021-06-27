@@ -3,6 +3,7 @@ package POJO;
 public class PokedexPoki {
 
 	int id;
+	
 	String name, typ, firstEvo, secondEvo, thirdEvo, pokedexEntry;
 
 	public int getId() {

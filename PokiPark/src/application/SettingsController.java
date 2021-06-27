@@ -61,31 +61,6 @@ public class SettingsController extends RegisterController implements Initializa
 	}
 
 	@FXML
-	private void settingsSpecified_TF_Action(ActionEvent event) {
-		settingsSpecified_B1_Action(event);
-	}
-
-	@FXML
-	private void settingsSpecified_B1_Action(ActionEvent event) {
-
-	}
-
-	@FXML
-	private void settingsSpecified_B2_Action(ActionEvent event) {
-
-	}
-
-	@FXML
-	private void contentPane_B1_Action(ActionEvent event) {
-
-	}
-
-	@FXML
-	private void contentPane_B2_Action(ActionEvent event) {
-
-	}
-
-	@FXML
 	private void contentPane_B3_Action(ActionEvent event) throws SQLException {
 
 		switch (lv2_Counter) {
@@ -103,37 +78,7 @@ public class SettingsController extends RegisterController implements Initializa
 			break;
 		}
 	}
-
-	@FXML
-	private void contentPane_B4_Action(ActionEvent event) throws SQLException {
-
-	}
-
-	@FXML
-	private void contentPane_B5_Action(ActionEvent event) throws SQLException {
-
-	}
-
-	@FXML
-	private void contentPane_B6_Action(ActionEvent event) {
-
-	}
-
-	@FXML
-	private void contentPane_B7_Action(ActionEvent event) {
-
-	}
-
-	@FXML
-	private void contentPane_B8_Action(ActionEvent event) {
-
-	}
-
-	@FXML
-	private void contentPane_LV_Clicked(MouseEvent event) {
-
-	}
-
+	
 	@FXML
 	private void mainmenu_buttonAction(ActionEvent event) throws IOException {
 
@@ -162,14 +107,17 @@ public class SettingsController extends RegisterController implements Initializa
 		contentPane_TF2.setVisible(true);
 
 		if (settingsSpecified_LV.getSelectionModel().getSelectedItem().equals("Benutzername")) {
+			
 			contentPane_ShowUsernameSettings();
 			lv2_Counter = 0;
 
 		} else if (settingsSpecified_LV.getSelectionModel().getSelectedItem().equals("Email")) {
+			
 			contentPane_ShowEmailSettings();
 			lv2_Counter = 1;
 
 		} else if (settingsSpecified_LV.getSelectionModel().getSelectedItem().equals("Passwort")) {
+			
 			contentPane_ShowPasswordSettings();
 			lv2_Counter = 2;
 		}
@@ -203,24 +151,29 @@ public class SettingsController extends RegisterController implements Initializa
 	private void database_UpdateUsername() throws SQLException {
 
 		if (usernameIsValid(Database.getUserlist(), contentPane_TF2.getText().toString())) {
+			
 			Database.sendSqlCommand("UPDATE usertable SET username = '" + contentPane_TF2.getText().toString()
 					+ "'  WHERE id = " + u.getId() + ";");
 			Database.initData("usertable");
 			initialize(null, null);
 			contentPane_ShowUsernameSettings();
+			
 		} else {
 			System.err.println("Benutzername ist bereits in Verwendung.");
 		}
 	}
 
 	private void database_UpdateEmail() throws SQLException {
+		
 		if (emailIsValid(Database.getUserlist(), contentPane_TF2.getText().toString())
 				&& emailHasCorrectSemantics(contentPane_TF2.getText().toString())) {
+			
 			Database.sendSqlCommand("UPDATE usertable SET email = '" + contentPane_TF2.getText().toString()
 					+ "'  WHERE id = " + u.getId() + ";");
 			Database.initData("usertable");
 			initialize(null, null);
 			contentPane_ShowEmailSettings();
+			
 		} else {
 			System.err.println("Email ist nicht gültig oder bereits in Verwendung.");
 		}
@@ -230,11 +183,13 @@ public class SettingsController extends RegisterController implements Initializa
 
 		if (contentPane_TF1.getText().toString().equals(u.getPassword())
 				&& passwordIsValid(contentPane_TF2.getText().toString())) {
+			
 			Database.sendSqlCommand("UPDATE usertable SET password = '" + contentPane_TF2.getText().toString()
 					+ "'  WHERE id = " + u.getId() + ";");
 			Database.initData("usertable");
 			initialize(null, null);
 			contentPane_ShowPasswordSettings();
+			
 		} else {
 			System.err.println(
 					"Altes Passwort ist nicht korrekt oder\nneues Passwort entspricht nicht den Anforderungen.");

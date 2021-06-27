@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegisterController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0">
@@ -20,7 +19,7 @@
                <children>
                   <ImageView fitHeight="368.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/Pokipark%20Login%20Image_Zeichenfläche%201_Zeichenfläche%201.png" />
+                        <Image url="@../../img/Pokipark%20Login%20Image.png" />
                      </image>
                   </ImageView>
                </children>
@@ -39,32 +38,32 @@
                         <Font name="ArtifaktElement-Regular" size="14.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="password" layoutX="117.0" layoutY="64.0" promptText="Passwort">
+                  <PasswordField fx:id="password_PF" layoutX="117.0" layoutY="64.0" promptText="Passwort">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="13.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="passwordCheck" layoutX="440.0" layoutY="64.0" promptText="Passwort bestätigen">
+                  <PasswordField fx:id="passwordCheck_PF" layoutX="440.0" layoutY="64.0" promptText="Passwort bestätigen">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="13.0" />
                      </font>
                   </PasswordField>
-                  <TextField fx:id="username" layoutX="117.0" layoutY="28.0" promptText="Benutzername">
+                  <TextField fx:id="username_TF" layoutX="117.0" layoutY="28.0" promptText="Benutzername">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="13.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="email" layoutX="440.0" layoutY="28.0" promptText="example@web.de">
+                  <TextField fx:id="email_TF" layoutX="440.0" layoutY="28.0" promptText="example@web.de">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="13.0" />
                      </font>
                   </TextField>
-                  <Hyperlink layoutX="253.0" layoutY="96.0" onAction="#loginClicked" text="zurück zum Login" textFill="#ffe14b" underline="true">
+                  <Hyperlink layoutX="253.0" layoutY="96.0" onAction="#login_HL_Action" text="zurück zum Login" textFill="#ffe14b" underline="true">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="11.0" />
                      </font>
                   </Hyperlink>
-                  <Button layoutX="477.0" layoutY="100.0" mnemonicParsing="false" onAction="#registerClicked" style="-fx-background-color: white; -fx-border-color: #ffe14b;" text="Registrieren" textFill="#814288">
+                  <Button layoutX="477.0" layoutY="100.0" mnemonicParsing="false" onAction="#register_B_Action" style="-fx-background-color: white; -fx-border-color: #ffe14b;" text="Registrieren" textFill="#814288">
                      <font>
                         <Font name="Artifakt Element Bold" size="11.0" />
                      </font>

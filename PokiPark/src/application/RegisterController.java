@@ -15,57 +15,67 @@ public class RegisterController {
 
 	@FXML
 	private AnchorPane rootPane;
-	@FXML
-	private Label errorLabel;
-	@FXML
-	private TextField username;
-	@FXML
-	private TextField email;
 
 	@FXML
-	private PasswordField password;
-	@FXML
-	private PasswordField passwordCheck;
+	private Label error_L;
 
 	@FXML
-	public void registerClicked(ActionEvent event) throws SQLException, IOException {
+	private TextField username_TF, email_TF;
+
+	@FXML
+	private PasswordField password_PF, passwordCheck_PF;
+
+	// START OF FXML-METHODS //
+
+	@FXML
+	public void register_B_Action(ActionEvent event) throws SQLException, IOException {
 		if (registerDataIsValid(getUsername(), getEmail(), getPassword(), getPasswordCheck())) {
 			Database.sendSqlCommand("INSERT INTO usertable (username, password, email, id, admin) VALUES ('"
 					+ getUsername() + "', '" + getPassword() + "','" + getEmail() + "', NULL, 0);");
-			errorLabel.setText("");
+			error_L.setText("");
 			AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
 			rootPane.getChildren().setAll(pane);
 		}
 	}
 
 	@FXML
-	public void loginClicked(ActionEvent event) throws IOException {
+	public void login_HL_Action(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 
+	// END OF FXML-METHODS //
+	
 	private boolean registerDataIsValid(String username, String email, String password, String passwordCheck)
 			throws SQLException {
+
 		Database.initData("usertable");
 		ArrayList<User> userlist = Database.getUserlist();
+
 		if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty()) {
-			errorLabel.setText("Gehe sicher, dass alle Felder ausgefüllt sind.");
+			error_L.setText("Gehe sicher, dass alle Felder ausgefüllt sind.");
 			return false;
+
 		} else if (!usernameIsValid(userlist, username)) {
-			errorLabel.setText("Benutzername wird bereits verwendet.");
+			error_L.setText("Benutzername wird bereits verwendet.");
 			return false;
+
 		} else if (!emailIsValid(userlist, email)) {
-			errorLabel.setText("Email wird bereits verwendet.");
+			error_L.setText("Email wird bereits verwendet.");
 			return false;
+
 		} else if (!emailHasCorrectSemantics(email)) {
-			errorLabel.setText("Email ist ungültig. Achte darauf, dass [@ und .] verwendet werden.");
+			error_L.setText("Email ist ungültig. Achte darauf, dass [@ und .] verwendet werden.");
 			return false;
+
 		} else if (!passwordIsValid(password)) {
-			errorLabel.setText("Passwort benötigt min. 8 Zeichen; Groß- & Kleinbuchstaben, Zahlen und Sonderzeichen.");
+			error_L.setText("Passwort benötigt min. 8 Zeichen; Groß- & Kleinbuchstaben, Zahlen und Sonderzeichen.");
 			return false;
+
 		} else if (!passwordMatchesWithPasswordCheck(password, passwordCheck)) {
-			errorLabel.setText("Passwörter stimmen nicht überein.");
+			error_L.setText("Passwörter stimmen nicht überein.");
 			return false;
+
 		} else
 			return true;
 	}
@@ -74,6 +84,7 @@ public class RegisterController {
 		boolean usernameIsValid = true;
 
 		for (int i = 0; i < userlist.size() & usernameIsValid; i++) {
+
 			if (userlist.get(i).getUsername().equals(username))
 				usernameIsValid = false;
 		}
@@ -84,6 +95,7 @@ public class RegisterController {
 		boolean emailIsValid = true;
 
 		for (int i = 0; i < userlist.size() & emailIsValid; i++) {
+
 			if (userlist.get(i).getEmail().equals(email))
 				emailIsValid = false;
 		}
@@ -116,6 +128,7 @@ public class RegisterController {
 			Matcher hasSpecials = specials.matcher(password);
 
 			return hasLetters.find() && hasNumbers.find() && hasSpecials.find();
+
 		} else
 			return false;
 	}
@@ -123,23 +136,24 @@ public class RegisterController {
 	private boolean passwordMatchesWithPasswordCheck(String password, String passwordCheck) {
 		if (password.equals(passwordCheck))
 			return true;
+
 		else
 			return false;
 	}
 
 	public String getUsername() {
-		return username.getText().toString();
+		return username_TF.getText().toString();
 	}
 
 	public String getEmail() {
-		return email.getText().toString();
+		return email_TF.getText().toString();
 	}
 
 	public String getPassword() {
-		return password.getText().toString();
+		return password_PF.getText().toString();
 	}
 
 	public String getPasswordCheck() {
-		return passwordCheck.getText().toString();
+		return passwordCheck_PF.getText().toString();
 	}
 }

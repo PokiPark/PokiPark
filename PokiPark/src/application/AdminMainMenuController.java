@@ -15,10 +15,9 @@ public class AdminMainMenuController implements Initializable {
 
 	@FXML
 	private AnchorPane rootPane;
+	
 	@FXML
-	private Label avatar;
-	@FXML
-	private Label usernameLabel;
+	private Label avatar_L, username_L;
 	
 	private ContextMenu cm = new ContextMenu();
 	private MenuItem settings_MI = new MenuItem("Einstellungen");
@@ -26,21 +25,21 @@ public class AdminMainMenuController implements Initializable {
 	private MenuItem quit_MI = new MenuItem("Verlassen");
 
 	@FXML
-	public void pokedexClicked(ActionEvent event) throws IOException {
+	public void pokedex_B_Action(ActionEvent event) throws IOException {
 		
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AdminPokedex.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
-	public void zonesClicked(ActionEvent event) throws IOException {
+	public void zones_B_Action(ActionEvent event) throws IOException {
 		
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AdminZones.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
-	public void logoutClicked(ActionEvent event) throws IOException {
+	public void logout_B_Action(ActionEvent event) throws IOException {
 		
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		rootPane.getChildren().setAll(pane);
@@ -50,12 +49,14 @@ public class AdminMainMenuController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		
-		usernameLabel.setText(Database.activeUser.getUsername());
-		usernameLabel.setWrapText(true);
+		username_L.setText(Database.activeUser.getUsername());
+		username_L.setWrapText(true);
 		
 		settings_MI.setOnAction(new EventHandler<ActionEvent>( ) {
+			
 			@Override
 			public void handle(ActionEvent event) {
+				
 				try {
 					AnchorPane pane = FXMLLoader.load(getClass().getResource("AdminSettings.fxml"));
 					rootPane.getChildren().setAll(pane);
@@ -64,9 +65,12 @@ public class AdminMainMenuController implements Initializable {
 				}
 			}
 		});
+		
 		logout_MI.setOnAction(new EventHandler<ActionEvent>( ) {
+			
 			@Override
 			public void handle(ActionEvent event) {
+				
 				try {
 					AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
 					rootPane.getChildren().setAll(pane);
@@ -75,7 +79,9 @@ public class AdminMainMenuController implements Initializable {
 				}
 			}
 		});
+		
 		quit_MI.setOnAction(new EventHandler<ActionEvent>( ) {
+			
 			@Override
 			public void handle(ActionEvent event) {
 				Platform.exit();
@@ -83,10 +89,10 @@ public class AdminMainMenuController implements Initializable {
 		});
 		
 		cm.getItems().addAll(settings_MI, logout_MI, quit_MI);
-		avatar.setContextMenu(cm);
+		avatar_L.setContextMenu(cm);
 		ImageView iv = new ImageView(new Image("Avatar.png"));
 		iv.setFitHeight(60);
 		iv.setFitWidth(60);
-		avatar.setGraphic(iv);
+		avatar_L.setGraphic(iv);
 	}
 }
