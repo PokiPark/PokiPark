@@ -14,7 +14,7 @@
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0">
          <top>
-            <AnchorPane prefHeight="76.0" prefWidth="600.0" style="-fx-background-color: darkViolet;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="76.0" prefWidth="600.0" style="-fx-background-color: #814288;" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="203.0" layoutY="8.0" text="Pokedex" textFill="#e9e9e9">
                      <font>
