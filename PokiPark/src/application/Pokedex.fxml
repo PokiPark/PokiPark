@@ -44,16 +44,16 @@
             </AnchorPane>
          </bottom>
          <left>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightYellow;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="375.0" prefWidth="150.0" style="-fx-background-color: lightYellow;" BorderPane.alignment="CENTER">
                <children>
-                  <ListView fx:id="pokedex_listview" onMouseClicked="#open_PokeInfo_ListViewClicked" prefHeight="375.0" prefWidth="200.0" style="-fx-background-color: gray;" />
+                  <ListView fx:id="pokedex_listview" onMouseClicked="#open_PokeInfo_ListViewClicked" prefHeight="374.0" prefWidth="148.0" style="-fx-background-color: gray;" />
                </children>
             </AnchorPane>
          </left>
          <right>
             <AnchorPane prefHeight="374.0" prefWidth="452.0" style="-fx-background-color: darkGray;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="374.0" fitWidth="452.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="381.0" fitWidth="452.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/pokedexBG.jpg" />
                      </image>
