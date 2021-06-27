@@ -19,7 +19,7 @@
                         <Image url="@../../img/Background.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="348.0" layoutY="80.0" mnemonicParsing="false" onAction="#zones_B_Action" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: lightGreen;" text="Zones">
+                  <Button layoutX="348.0" layoutY="80.0" mnemonicParsing="false" onAction="#zones_B_Action" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: lightGreen;" text="Karte" textFill="WHITE">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="48.0" />
                      </font>

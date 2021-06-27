@@ -16,9 +16,9 @@
          <top>
             <AnchorPane prefHeight="76.0" prefWidth="600.0" style="-fx-background-color: #814288;" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="203.0" layoutY="8.0" text="Pokedex" textFill="#e9e9e9">
+                  <Label layoutX="216.0" layoutY="9.0" text="POKEDEX" textFill="#e9e9e9">
                      <font>
-                        <Font name="Artifakt Element Bold" size="48.0" />
+                        <Font size="40.0" />
                      </font>
                   </Label>
                </children>
@@ -27,7 +27,7 @@
          <bottom>
             <AnchorPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: orange;" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="501.0" layoutY="13.0" mnemonicParsing="false" onAction="#mainmenu_B_Action" style="-fx-background-color: white; -fx-background-radius: 4;" text="Hauptmenu">
+                  <Button layoutX="501.0" layoutY="13.0" mnemonicParsing="false" onAction="#mainmenu_B_Action" style="-fx-background-color: white; -fx-background-radius: 4;" text="Hauptmenü">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="12.0" />
                      </font>
@@ -58,13 +58,13 @@
                         <Image url="@../../img/pokedexBG.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="pokeInfo_L" layoutX="261.0" layoutY="14.0" prefHeight="175.0" prefWidth="175.0" style="-fx-background-color: white;">
+                  <Label fx:id="pokeInfo_L" layoutX="261.0" layoutY="14.0" prefHeight="175.0" prefWidth="175.0" style="-fx-background-color: transparent;" textFill="WHITE">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="16.0" />
                      </font>
                   </Label>
                   <ImageView fx:id="poke_IV" fitHeight="175.0" fitWidth="175.0" layoutX="32.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="pokedexEntry_L" layoutX="15.0" layoutY="239.0" prefHeight="122.0" prefWidth="421.0" style="-fx-background-color: white;">
+                  <Label fx:id="pokedexEntry_L" layoutX="15.0" layoutY="239.0" prefHeight="122.0" prefWidth="421.0" style="-fx-background-color: transparent;" textFill="WHITE">
                      <font>
                         <Font name="Artifakt Element Italic" size="16.0" />
                      </font>
