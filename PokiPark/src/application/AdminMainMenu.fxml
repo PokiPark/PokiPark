@@ -29,7 +29,7 @@
                         <Font name="ArtifaktElement-Regular" size="14.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="280.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="288.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/Pokedex.png" />
                            </image>
