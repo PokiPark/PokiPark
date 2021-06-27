@@ -210,10 +210,10 @@ public class AdminPokedexController implements Initializable {
 					setText(null);
 					setGraphic(null);
 				} else {
-					// littlePoke_ImageView.setImage(new Image(name + ".png"));
-					littlePoke_ImageView.setImage(new Image("Vulpix.png"));
-					littlePoke_ImageView.setFitHeight(14);
-					littlePoke_ImageView.setFitWidth(14);
+					littlePoke_ImageView.setImage(new Image(name + ".png"));
+					// littlePoke_ImageView.setImage(new Image("Vulpix.png"));
+					littlePoke_ImageView.setFitHeight(25);
+					littlePoke_ImageView.setFitWidth(25);
 					setText(name);
 					setGraphic(littlePoke_ImageView);
 				}

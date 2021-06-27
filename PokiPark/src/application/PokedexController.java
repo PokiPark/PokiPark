@@ -208,10 +208,9 @@ public class PokedexController implements Initializable {
 					setText(null);
 					setGraphic(null);
 				} else {
-					// littlePoke_ImageView.setImage(new Image(name + ".png"));
-					littlePoke_ImageView.setImage(new Image("Vulpix.png"));
-					littlePoke_ImageView.setFitHeight(14);
-					littlePoke_ImageView.setFitWidth(14);
+					littlePoke_ImageView.setImage(new Image(name + ".png"));
+					littlePoke_ImageView.setFitHeight(20);
+					littlePoke_ImageView.setFitWidth(20);
 					setText(name);
 					setGraphic(littlePoke_ImageView);
 				}
