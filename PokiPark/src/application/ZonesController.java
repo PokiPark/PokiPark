@@ -35,7 +35,7 @@ public class ZonesController implements Initializable {
 
 	private int pokiCount = 0;
 
-	private ArrayList<ImageView> poki_BL = new ArrayList<ImageView>();;
+	private ArrayList<ImageView> poki_IVL = new ArrayList<ImageView>();;
 
 	// START OF FXML-METHODS //
 
@@ -170,10 +170,10 @@ public class ZonesController implements Initializable {
 	private void loadPokis(int zone) {
 
 		for (int i = 0; i < pokiCount; i++) {
-			contentPane.getChildren().remove(poki_BL.get(i));
+			contentPane.getChildren().remove(poki_IVL.get(i));
 		}
 		pokilist.clear();
-		poki_BL.clear();
+		poki_IVL.clear();
 
 		switch (zone) {
 
@@ -246,24 +246,26 @@ public class ZonesController implements Initializable {
 		}
 
 		for (int i = 0; i < pokilist.size(); i++) {
-			poki_BL.add(new ImageView());
-			poki_BL.get(i).setFitHeight(50);
-			poki_BL.get(i).setFitWidth(50);
+			poki_IVL.add(new ImageView());
+			poki_IVL.get(i).setFitHeight(50);
+			poki_IVL.get(i).setFitWidth(50);
 
-			poki_BL.get(i).setLayoutX(30 + Math.random() * 370);
-			poki_BL.get(i).setLayoutY(30 + Math.random() * 270);
+			if(Math.random() > 0.5) poki_IVL.get(i).setScaleX(-1);
+			
+			poki_IVL.get(i).setLayoutX(30 + Math.random() * 370);
+			poki_IVL.get(i).setLayoutY(30 + Math.random() * 270);
 
-			poki_BL.get(i).setImage(new Image(pokilist.get(i).getName() + "M.png"));
+			poki_IVL.get(i).setImage(new Image(pokilist.get(i).getName() + "M.png"));
 
-			poki_BL.get(i).setVisible(true);
-			contentPane.getChildren().add(poki_BL.get(i));
+			poki_IVL.get(i).setVisible(true);
+			contentPane.getChildren().add(poki_IVL.get(i));
 		}
 	}
 
 	private void hidePokis() {
 
 		for (int i = 0; i < pokilist.size(); i++) {
-			contentPane.getChildren().remove(poki_BL.get(i));
+			contentPane.getChildren().remove(poki_IVL.get(i));
 		}
 	}
 
