@@ -19,10 +19,22 @@
                         <Image url="@../../img/Background.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="386.0" layoutY="80.0" mnemonicParsing="false" onAction="#zones_B_Action" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: lightGreen;" text="Zones">
+                  <Button layoutX="348.0" layoutY="80.0" mnemonicParsing="false" onAction="#zones_B_Action" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: lightGreen;" text="Zones">
                      <font>
                         <Font name="ArtifaktElement-Regular" size="48.0" />
                      </font>
+                  </Button>
+                  <Button fx:id="pokedex_B" layoutX="55.0" layoutY="80.0" mnemonicParsing="false" onAction="#pokedex_B_Action" prefHeight="288.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+                     <font>
+                        <Font name="ArtifaktElement-Regular" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="280.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/Pokedex.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </AnchorPane>
@@ -35,19 +47,12 @@
                         <Font name="ArtifaktElement-Regular" size="18.0" />
                      </font>
                   </Label>
-                  <Button layoutX="4.0" layoutY="4.0" mnemonicParsing="false" onAction="#pokedex_B_Action" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #814288;">
-                     <font>
-                        <Font name="ArtifaktElement-Regular" size="14.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../img/pokiball.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Label fx:id="avatar_L" layoutX="527.0" layoutY="12.0" prefHeight="60.0" prefWidth="60.0" />
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="8.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/pokiball.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </top>
