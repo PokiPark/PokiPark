@@ -54,6 +54,7 @@ public class ZonesController implements Initializable {
 			map_B.setVisible(true);
 
 			loadPokis(0);
+			
 		} else if (select.equals("Wiese / Wald")) {
 
 			main_IV.setImage(new Image("Weed.png"));
@@ -64,6 +65,7 @@ public class ZonesController implements Initializable {
 			map_B.setVisible(true);
 
 			loadPokis(1);
+			
 		} else if (select.equals("Wüste")) {
 
 			main_IV.setImage(new Image("Wüste.png"));
@@ -74,6 +76,7 @@ public class ZonesController implements Initializable {
 			map_B.setVisible(true);
 
 			loadPokis(2);
+			
 		} else if (select.equals("Gebirge")) {
 
 			main_IV.setImage(new Image("Stein mit Schnee.png"));
@@ -172,6 +175,7 @@ public class ZonesController implements Initializable {
 		for (int i = 0; i < pokilist.size(); i++) {
 			contentPane.getChildren().remove(poki_IVL.get(i));
 		}
+		
 		pokilist.clear();
 		poki_IVL.clear();
 
@@ -179,13 +183,18 @@ public class ZonesController implements Initializable {
 
 		case 0:
 			Database.getPokilist().forEach(p -> {
+				
 				pokiCount = 0;
+				
 				for (int i = 0; i < pokilist.size(); i++) {
+					
 					if (pokilist.get(i).getName().equals(p.getName())) {
 						pokiCount++;
 					}
 				}
+				
 				if ((p.getTyp().contains("Wasser") | p.getTyp().contains("Flug")) & pokiCount <= p.getAnzahl()) {
+					
 					for (int i = 0; i < p.getAnzahl(); i++)
 						pokilist.add(p);
 				}
@@ -194,15 +203,20 @@ public class ZonesController implements Initializable {
 
 		case 1:
 			Database.getPokilist().forEach(p -> {
+				
 				pokiCount = 0;
+				
 				for (int i = 0; i < pokilist.size(); i++) {
+					
 					if (pokilist.get(i).getName().equals(p.getName())) {
 						pokiCount++;
 					}
 				}
+				
 				if ((p.getTyp().contains("Pflanze") | p.getTyp().contains("Normal") | p.getTyp().contains("Käfer")
 						| p.getTyp().contains("Gift") | p.getTyp().contains("Psycho") | p.getTyp().contains("Geist")
 						| p.getTyp().contains("Unlicht") | p.getTyp().contains("Fee")) & pokiCount <= p.getAnzahl()) {
+					
 					for (int i = 0; i < p.getAnzahl(); i++)
 						pokilist.add(p);
 				}
@@ -211,15 +225,20 @@ public class ZonesController implements Initializable {
 
 		case 2:
 			Database.getPokilist().forEach(p -> {
+				
 				pokiCount = 0;
+				
 				for (int i = 0; i < pokilist.size(); i++) {
+					
 					if (pokilist.get(i).getName().equals(p.getName())) {
 						pokiCount++;
 					}
 				}
+				
 				if ((p.getTyp().contains("Normal") | p.getTyp().contains("Feuer") | p.getTyp().contains("Gestein")
 						| p.getTyp().contains("Boden") | p.getTyp().contains("Kampf") | p.getTyp().contains("Stahl"))
 						& pokiCount <= p.getAnzahl()) {
+					
 					for (int i = 0; i < p.getAnzahl(); i++)
 						pokilist.add(p);
 				}
@@ -228,16 +247,21 @@ public class ZonesController implements Initializable {
 
 		case 3:
 			Database.getPokilist().forEach(p -> {
+				
 				pokiCount = 0;
+				
 				for (int i = 0; i < pokilist.size(); i++) {
+					
 					if (pokilist.get(i).getName().equals(p.getName())) {
 						pokiCount++;
 					}
 				}
+				
 				if ((p.getTyp().contains("Feuer") | p.getTyp().contains("Elektro") | p.getTyp().contains("Flug")
 						| p.getTyp().contains("Gestein") | p.getTyp().contains("Boden") | p.getTyp().contains("Kampf")
 						| p.getTyp().contains("Eis") | p.getTyp().contains("Psycho") | p.getTyp().contains("Drache")
 						| p.getTyp().contains("Stahl") | p.getTyp().contains("Fee")) & pokiCount <= p.getAnzahl()) {
+					
 					for (int i = 0; i < p.getAnzahl(); i++)
 						pokilist.add(p);
 				}
@@ -246,6 +270,7 @@ public class ZonesController implements Initializable {
 		}
 
 		for (int i = 0; i < pokilist.size(); i++) {
+			
 			poki_IVL.add(new ImageView());
 			poki_IVL.get(i).setFitHeight(50);
 			poki_IVL.get(i).setFitWidth(50);
@@ -254,10 +279,9 @@ public class ZonesController implements Initializable {
 			
 			poki_IVL.get(i).setLayoutX(30 + Math.random() * 370);
 			poki_IVL.get(i).setLayoutY(30 + Math.random() * 270);
-
 			poki_IVL.get(i).setImage(new Image(pokilist.get(i).getName() + "M.png"));
-
 			poki_IVL.get(i).setVisible(true);
+			
 			contentPane.getChildren().add(poki_IVL.get(i));
 		}
 	}

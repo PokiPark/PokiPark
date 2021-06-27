@@ -13,54 +13,62 @@ public class LoginController {
 	@FXML
 	private AnchorPane rootPane;
 	@FXML
-	private Label errorLabel;
+	private Label error_L;
 	@FXML
-	private TextField username;
+	private TextField username_TF;
 	@FXML
-	private PasswordField password;
+	private PasswordField password_PF;
 	@FXML
-	private Button login;
+	private Button login_B;
 	@FXML
-	private Hyperlink register;
+	private Hyperlink register_HL;
 
 	@FXML
-	private void loginClicked(ActionEvent event) throws IOException, SQLException {
+	private void login_B_Action(ActionEvent event) throws IOException, SQLException {
+		
 		Database.initData("usertable");
 		Database.getUserlist().forEach((item) -> {
-			if (username.getText().toString().equals(item.getUsername())
-					&& password.getText().toString().equals(item.getPassword())) {
+			
+			if (username_TF.getText().toString().equals(item.getUsername())
+					&& password_PF.getText().toString().equals(item.getPassword())) {
+				
 				item.setActiveUser();
+				
 				if (item.isAdmin()) {
+					
 					try {
 						AnchorPane pane = FXMLLoader.load(getClass().getResource("AdminMainMenu.fxml"));
 						rootPane.getChildren().setAll(pane);
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					
 				} else {
+					
 					try {
 						AnchorPane pane = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
 						rootPane.getChildren().setAll(pane);
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
-			} else if (username.getText().isEmpty() && password.getText().isEmpty()) {
-				errorLabel.setText("Bitte gebe deine Daten ein.");
+				
+			} else if (username_TF.getText().isEmpty() && password_PF.getText().isEmpty()) {
+				error_L.setText("Bitte gebe deine Daten ein.");
+				
 			} else {
-				errorLabel.setText("Falsches Passwort oder Benutzername.");
+				error_L.setText("Falsches Passwort oder Benutzername.");
 			}
 		});
-		password.clear();
+		password_PF.clear();
 	}
 
 	@FXML
-	private void registerClicked(ActionEvent event) throws IOException {
+	private void register_HL_Action(ActionEvent event) throws IOException {
+		
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("Register.fxml"));
 		rootPane.getChildren().setAll(pane);
-	}
-
-	public String getUsername() {
-		return username.getText().toString();
 	}
 }

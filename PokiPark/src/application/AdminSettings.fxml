@@ -44,11 +44,6 @@
                               <Font name="ArtifaktElement-Regular" size="12.0" />
                            </font>
                         </Label>
-                        <Button fx:id="contentPane_B2" layoutX="110.0" layoutY="303.0" mnemonicParsing="false" onAction="#contentPane_B2_Action" prefHeight="31.0" prefWidth="75.0" text="Bestätigen">
-                           <font>
-                              <Font name="ArtifaktElement-Regular" size="11.0" />
-                           </font>
-                        </Button>
                         <TextField fx:id="contentPane_TF1" layoutX="15.0" layoutY="43.0" prefHeight="28.0" prefWidth="170.0">
                            <font>
                               <Font name="ArtifaktElement-Regular" size="12.0" />

@@ -3,6 +3,7 @@ package POJO;
 public class Poki {
 
 	private int id, anzahl = 0;
+	
 	private String name, typ;
 
 	public int getId() {
