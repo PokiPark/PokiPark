@@ -214,6 +214,7 @@ public class PokedexController implements Initializable {
 			load_Pokedex_LV(filteredPokedex_AL);
 			
 		} else {
+			currentPokedex_AL = pokedex_AL;
 			load_Pokedex_LV(pokedex_AL);
 		}
 	}

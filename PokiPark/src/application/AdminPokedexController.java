@@ -228,6 +228,7 @@ public class AdminPokedexController implements Initializable {
 			load_Pokedex_ListView(filteredPokedex_AL);
 			
 		} else {
+			currentPokedex_AL = pokedex_AL;
 			load_Pokedex_ListView(pokedex_AL);
 		}
 	}
