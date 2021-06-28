@@ -155,6 +155,8 @@ public class SettingsController extends RegisterController implements Initializa
 			Database.sendSqlCommand("UPDATE usertable SET username = '" + contentPane_TF2.getText().toString()
 					+ "'  WHERE id = " + u.getId() + ";");
 			Database.initData("usertable");
+			Database.activeUser.setUsername(contentPane_TF2.getText().toString());
+			
 			initialize(null, null);
 			contentPane_ShowUsernameSettings();
 			
@@ -171,6 +173,8 @@ public class SettingsController extends RegisterController implements Initializa
 			Database.sendSqlCommand("UPDATE usertable SET email = '" + contentPane_TF2.getText().toString()
 					+ "'  WHERE id = " + u.getId() + ";");
 			Database.initData("usertable");
+			Database.activeUser.setEmail(contentPane_TF2.getText().toString());
+			
 			initialize(null, null);
 			contentPane_ShowEmailSettings();
 			
