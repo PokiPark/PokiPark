@@ -1059,38 +1059,6 @@ public class AdminSettingsController extends RegisterController implements Initi
 		initialize(null, null);
 	}
 
-	/*
-	 * public ObservableList<String> heapSort(ObservableList<String> ol) {
-	 * 
-	 * 
-	 * int size = ol.size();
-	 * 
-	 * for (int i = size / 2 - 1; i > 0; i--) { ol = heapify(ol, size, i);
-	 * System.out.println(ol); }
-	 * 
-	 * for (int i = size - 1; i > 0; i--) { String temp = ol.get(0); ol.set(0,
-	 * ol.get(i)); ol.set(i, temp);
-	 * 
-	 * ol = heapify(ol, 0, i); System.out.println(ol); }
-	 * 
-	 * return ol; }
-	 * 
-	 * private ObservableList<String> heapify(ObservableList<String> ol, int size,
-	 * int i) {
-	 * 
-	 * int max = i; int left = 2 * i + 1; int right = 2 * i + 2;
-	 * 
-	 * if (left < size && (int) ol.get(left).charAt(0) > (int)
-	 * ol.get(max).charAt(0)) max = left;
-	 * 
-	 * if (right < size && (int) ol.get(right).charAt(0) > (int)
-	 * ol.get(max).charAt(0)) max = right;
-	 * 
-	 * if (max != i) { String swap = ol.get(i); ol.set(i, ol.get(max)); ol.set(max,
-	 * swap);
-	 * 
-	 * ol = heapify(ol, size, max); } return ol; }
-	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
