@@ -24,21 +24,21 @@ public class MainMenuController implements Initializable {
 			quit_MI = new MenuItem("Verlassen");
 
 	@FXML
-	public void pokedex_B_Action(ActionEvent event) throws IOException {
+	private void pokedex_B_Action(ActionEvent event) throws IOException {
 		
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("Pokedex.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
-	public void zones_B_Action(ActionEvent event) throws IOException {
+	private void zones_B_Action(ActionEvent event) throws IOException {
 		
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("Zones.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
-	public void logout_B_Action(ActionEvent event) throws IOException {
+	private void logout_B_Action(ActionEvent event) throws IOException {
 		
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		rootPane.getChildren().setAll(pane);

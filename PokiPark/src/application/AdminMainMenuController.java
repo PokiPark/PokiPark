@@ -17,9 +17,6 @@ public class AdminMainMenuController implements Initializable {
 	private AnchorPane rootPane;
 	
 	@FXML
-    private Button Pokedex_B;
-	
-	@FXML
 	private Label avatar_L, username_L;
 	
 	private ContextMenu cm = new ContextMenu();

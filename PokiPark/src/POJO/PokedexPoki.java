@@ -2,9 +2,9 @@ package POJO;
 
 public class PokedexPoki {
 
-	int id;
+	private int id;
 	
-	String name, typ, firstEvo, secondEvo, thirdEvo, pokedexEntry;
+	private String name, typ, firstEvo, secondEvo, thirdEvo, pokedexEntry;
 
 	public int getId() {
 		return id;

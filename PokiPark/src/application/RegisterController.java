@@ -28,23 +28,33 @@ public class RegisterController {
 	// START OF FXML-METHODS //
 
 	@FXML
-	public void register_B_Action(ActionEvent event) throws SQLException, IOException {
-		if (registerDataIsValid(getUsername(), getEmail(), getPassword(), getPasswordCheck())) {
+	private void register_B_Action(ActionEvent event) throws SQLException, IOException {
+		
+		String username = username_TF.getText().toString();
+		String email = email_TF.getText().toString();
+		String password = password_PF.getText().toString();
+		String passwordCheck = passwordCheck_PF.getText().toString();
+		
+		if (registerDataIsValid(username, email, password, passwordCheck)) {
+			
 			Database.sendSqlCommand("INSERT INTO usertable (username, password, email, id, admin) VALUES ('"
-					+ getUsername() + "', '" + getPassword() + "','" + getEmail() + "', NULL, 0);");
+					+ username + "', '" + password + "','" + email + "', NULL, 0);");
+			
 			error_L.setText("");
+			
 			AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
 			rootPane.getChildren().setAll(pane);
 		}
 	}
 
 	@FXML
-	public void login_HL_Action(ActionEvent event) throws IOException {
+	private void login_HL_Action(ActionEvent event) throws IOException {
+		
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("Login.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 
-	// END OF FXML-METHODS //
+	// END OF FXML-METHODS //, String 
 	
 	private boolean registerDataIsValid(String username, String email, String password, String passwordCheck)
 			throws SQLException {
@@ -53,26 +63,32 @@ public class RegisterController {
 		ArrayList<User> userlist = Database.getUserlist();
 
 		if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty()) {
+			
 			error_L.setText("Gehe sicher, dass alle Felder ausgefüllt sind.");
 			return false;
 
 		} else if (!usernameIsValid(userlist, username)) {
+			
 			error_L.setText("Benutzername wird bereits verwendet.");
 			return false;
 
 		} else if (!emailIsValid(userlist, email)) {
+			
 			error_L.setText("Email wird bereits verwendet.");
 			return false;
 
 		} else if (!emailHasCorrectSemantics(email)) {
+			
 			error_L.setText("Email ist ungültig. Achte darauf, dass [@ und .] verwendet werden.");
 			return false;
 
 		} else if (!passwordIsValid(password)) {
+			
 			error_L.setText("Passwort benötigt min. 8 Zeichen; Groß- & Kleinbuchstaben, Zahlen und Sonderzeichen.");
 			return false;
 
-		} else if (!passwordMatchesWithPasswordCheck(password, passwordCheck)) {
+		} else if (!passwordsMatch(password, passwordCheck)) {
+			
 			error_L.setText("Passwörter stimmen nicht überein.");
 			return false;
 
@@ -133,27 +149,11 @@ public class RegisterController {
 			return false;
 	}
 
-	private boolean passwordMatchesWithPasswordCheck(String password, String passwordCheck) {
+	private boolean passwordsMatch(String password, String passwordCheck) {
 		if (password.equals(passwordCheck))
 			return true;
 
 		else
 			return false;
-	}
-
-	public String getUsername() {
-		return username_TF.getText().toString();
-	}
-
-	public String getEmail() {
-		return email_TF.getText().toString();
-	}
-
-	public String getPassword() {
-		return password_PF.getText().toString();
-	}
-
-	public String getPasswordCheck() {
-		return passwordCheck_PF.getText().toString();
 	}
 }

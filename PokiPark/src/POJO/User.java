@@ -5,31 +5,10 @@ import application.Database;
 public class User {
 
 	private int id;
-	
-	private String username, password, email;
-	
-	private boolean isAdmin;
 
-	
-	
-	@Override
-	public String toString() {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("Id: ");
-		sb.append(getId());
-		sb.append("\t");
-		sb.append(getUsername());
-		sb.append("\t");
-		sb.append(getPassword());
-		sb.append("\t");
-		sb.append(getEmail());
-		sb.append("\t");
-		sb.append(isAdmin());
-		
-		return sb.toString();
-	}
+	private String username, password, email;
+
+	private boolean isAdmin;
 
 	public int getId() {
 		return id;
@@ -68,10 +47,10 @@ public class User {
 	}
 
 	public void setAdmin(int isAdmin) {
-		
+
 		if (isAdmin == 0)
 			this.isAdmin = false;
-		
+
 		else if (isAdmin == 1)
 			this.isAdmin = true;
 	}

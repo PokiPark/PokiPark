@@ -16,10 +16,6 @@ import javafx.scene.layout.*;
 
 public class PokedexController implements Initializable {
 
-	private ObservableList<String> pokedex_OL = FXCollections.observableArrayList();
-	private ArrayList<PokedexPoki> pokedex_AL = Database.getPokedex(), currentPokedex_AL = pokedex_AL,
-			filteredPokedex_AL = new ArrayList<PokedexPoki>();
-
 	@FXML
 	private AnchorPane rootPane;
 
@@ -34,6 +30,11 @@ public class PokedexController implements Initializable {
 
 	@FXML
 	private TextField search_TF;
+	
+	private ObservableList<String> pokedex_OL = FXCollections.observableArrayList();
+	
+	private ArrayList<PokedexPoki> pokedex_AL = Database.getPokedex(), currentPokedex_AL = pokedex_AL,
+			filteredPokedex_AL = new ArrayList<PokedexPoki>();
 
 	@FXML
 	private void mainmenu_B_Action(ActionEvent event) throws IOException {
@@ -105,7 +106,7 @@ public class PokedexController implements Initializable {
 			}
 		}
 		idCounter++;
-		load_Pokedex_ListView(currentPokedex_AL);
+		load_Pokedex_LV(currentPokedex_AL);
 	}
 
 	private int azCounter = 0;
@@ -131,6 +132,7 @@ public class PokedexController implements Initializable {
 					}
 				}
 			}
+			
 		} else if (azCounter % 2 == 0) {
 
 			for (int i = 0; i < pokedexSize; i++) {
@@ -148,7 +150,7 @@ public class PokedexController implements Initializable {
 			}
 		}
 		azCounter++;
-		load_Pokedex_ListView(currentPokedex_AL);
+		load_Pokedex_LV(currentPokedex_AL);
 	}
 
 	private int typCounter = 0;
@@ -189,23 +191,7 @@ public class PokedexController implements Initializable {
 			}
 		}
 		typCounter++;
-		load_Pokedex_ListView(currentPokedex_AL);
-	}
-
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		
-		try {
-			Database.initData("pokedex");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			load_Pokedex_ListView(pokedex_AL);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		load_Pokedex_LV(currentPokedex_AL);
 	}
 
 	@FXML
@@ -225,14 +211,14 @@ public class PokedexController implements Initializable {
 				}
 			});
 			currentPokedex_AL = filteredPokedex_AL;
-			load_Pokedex_ListView(filteredPokedex_AL);
+			load_Pokedex_LV(filteredPokedex_AL);
 			
 		} else {
-			load_Pokedex_ListView(pokedex_AL);
+			load_Pokedex_LV(pokedex_AL);
 		}
 	}
 
-	public void load_Pokedex_ListView(ArrayList<PokedexPoki> pokedex) throws SQLException {
+	public void load_Pokedex_LV(ArrayList<PokedexPoki> pokedex) throws SQLException {
 		
 		pokedex_OL.removeAll(pokedex_OL);
 		pokedex_LV.getItems().clear();
@@ -269,5 +255,21 @@ public class PokedexController implements Initializable {
 				}
 			}
 		});
+	}
+	
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		
+		try {
+			Database.initData("pokedex");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			load_Pokedex_LV(pokedex_AL);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
